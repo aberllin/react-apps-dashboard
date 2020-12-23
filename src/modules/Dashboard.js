@@ -1,36 +1,69 @@
 import React from 'react'
 import styled from 'styled-components'
 import { AppCard } from '../components/AppCard'
-import forest from '../images/forest.jpg'
-import forest1 from '../images/forest1.jpg'
-import forest2 from '../images/forest2.jpg'
+import appsData from './appsData.js'
+import PropTypes from 'prop-types'
+import Toggle from '../components/Toggle'
 
-const appsData = [
-  { id: 1, title: 'Calculator', image: forest },
-  { id: 2, title: 'Calculator', image: forest },
-  { id: 3, title: 'Calculator', image: forest },
-  { id: 4, title: 'Calculator', image: forest },
-  { id: 5, title: 'Calculator', image: forest },
-  { id: 6, title: 'Timer', image: forest1 },
-  { id: 7, title: 'Timer', image: forest1 },
-  { id: 8, title: 'Timer', image: forest1 },
-  { id: 9, title: 'Timer', image: forest1 },
-  { id: 10, title: 'Timer', image: forest1 },
-  { id: 11, title: 'Weather', image: forest2 },
-  { id: 12, title: 'Weather', image: forest2 },
-  { id: 13, title: 'Weather', image: forest2 },
-  { id: 14, title: 'Weather', image: forest2 },
-  { id: 15, title: 'Weather', image: forest2 },
-]
+export const Dashboard = () => {
+  const [toggled, setToggled] = React.useState(false)
+  const handleClick = () => {
+    setToggled((t) => !t)
+  }
+  return (
+    <Container toggled={toggled}>
+      <Header>
+        <Title toggled={toggled}>Apps Dashboard</Title>
+        <Toggle onClick={handleClick} toggled={toggled} />
+      </Header>
+
+      <AppCardsWrapper>
+        {appsData.map(({ id, title, image }) => (
+          <CardWrapper toggled={toggled}>
+            <AppCard key={id} title={title} image={image} />
+          </CardWrapper>
+        ))}
+      </AppCardsWrapper>
+    </Container>
+  )
+}
+
+Dashboard.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.object.isRequired,
+  image: PropTypes.object.isRequired,
+}
 
 const Container = styled.div`
   padding: 50px;
+  background: #ececec;
+  ${(props) => {
+    if (props.toggled) {
+      return `
+            background: black;  
+            `
+    }
+  }};
+`
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const Title = styled.div`
   font-size: 40px;
   text-align: center;
   width: calc(100% / 3);
+
+  ${(props) => {
+    if (props.toggled) {
+      return `
+            color: #ecf0f3;  
+            `
+    }
+  }};
 
   @media screen and (max-width: 768px) {
     width: calc(100% / 2);
@@ -54,6 +87,14 @@ const AppCardsWrapper = styled.div`
 const CardWrapper = styled.div`
   width: calc(100% / 5);
 
+  ${(props) => {
+    if (props.toggled) {
+      return `
+            color: #ecf0f3;  
+            `
+    }
+  }}
+
   @media screen and (max-width: 1199px) {
     width: calc(100% / 5);
   }
@@ -74,18 +115,3 @@ const CardWrapper = styled.div`
     width: 100%;
   }
 `
-
-export const Dashboard = () => {
-  return (
-    <Container>
-      <Title>Apps Dashboard</Title>
-      <AppCardsWrapper>
-        {appsData.map((app) => (
-          <CardWrapper>
-            <AppCard key={app.id} title={app.title} image={app.image} />
-          </CardWrapper>
-        ))}
-      </AppCardsWrapper>
-    </Container>
-  )
-}

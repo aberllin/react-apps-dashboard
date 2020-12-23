@@ -1,5 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
+
+export const AppCard = ({ image, title }) => {
+  return (
+    <CardContainer>
+      <Image background={image} />
+      <div>{title}</div>
+    </CardContainer>
+  )
+}
+
+AppCard.propTypes = {
+  image: PropTypes.object.isRequired,
+  title: PropTypes.object.isRequired,
+}
 
 const Image = styled.div`
   border: 1px solid #000;
@@ -14,6 +29,7 @@ const Image = styled.div`
   height: 150px;
   margin-bottom: 5px;
   transition: ease-in-out 0.2s;
+  cursor: pointer;
 
   &:hover {
     opacity: 30%;
@@ -27,12 +43,3 @@ const CardContainer = styled.div`
   text-align: center;
   padding: 10px 10px 20px 10px;
 `
-
-export const AppCard = (props) => {
-  return (
-    <CardContainer>
-      <Image background={props.image} />
-      <div>{props.title}</div>
-    </CardContainer>
-  )
-}
