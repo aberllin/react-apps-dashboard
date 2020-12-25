@@ -1,4 +1,3 @@
-import React from 'react'
 import forest from '../images/forest.jpg'
 import forest1 from '../images/forest1.jpg'
 import forest2 from '../images/forest2.jpg'
