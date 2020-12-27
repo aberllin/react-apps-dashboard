@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function Toggle({ toggled, onClick }) {
+function Toggle({ onClick, theme }) {
   return (
-    <ToggleButton onClick={onClick} toggled={toggled}>
-      <Circle toggled={toggled} />
+    <ToggleButton onClick={onClick} toggled={theme}>
+      <Circle toggled={theme} />
     </ToggleButton>
   )
 }
@@ -32,7 +32,7 @@ const Circle = styled.div`
   box-shadow: 2px 2px 5px #d4dbe7, -2px -2px 5px #fdfefe;
   transition: ease-in 0.2s;
   ${(props) => {
-    if (props.toggled) {
+    if (props.toggled === 'dark') {
       return `
             background: #1CCBB1;
             transform: translate(37px, 0);          

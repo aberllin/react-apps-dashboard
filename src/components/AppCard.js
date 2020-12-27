@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
 
 export const AppCard = ({ image, title }) => {
   return (
@@ -11,11 +10,6 @@ export const AppCard = ({ image, title }) => {
   )
 }
 
-AppCard.propTypes = {
-  image: PropTypes.object.isRequired,
-  title: PropTypes.object.isRequired,
-}
-
 const Image = styled.div`
   border: 1px solid #000;
   background: url(${(props) => props.background});
@@ -23,8 +17,7 @@ const Image = styled.div`
   background-size: cover;
   border-radius: 50%;
   border: 1px solid #faf4f4;
-  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
-    10px 10px 15px rgba(70, 70, 70, 0.12);
+  box-shadow: ${({ theme }) => theme.cardShadow};
   width: 150px;
   height: 150px;
   margin-bottom: 5px;

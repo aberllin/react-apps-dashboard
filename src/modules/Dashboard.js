@@ -2,24 +2,19 @@ import React from 'react'
 import styled from 'styled-components'
 import { AppCard } from '../components/AppCard'
 import appsData from './appsData.js'
-import PropTypes from 'prop-types'
 import Toggle from '../components/Toggle'
 
-export const Dashboard = () => {
-  const [toggled, setToggled] = React.useState(false)
-  const handleClick = () => {
-    setToggled((t) => !t)
-  }
+export const Dashboard = ({ changeTheme, theme }) => {
   return (
-    <Container toggled={toggled}>
+    <Container>
       <Header>
-        <Title toggled={toggled}>Apps Dashboard</Title>
-        <Toggle onClick={handleClick} toggled={toggled} />
+        <Title>Apps Dashboard</Title>
+        <Toggle onClick={changeTheme} theme={theme} />
       </Header>
 
       <AppCardsWrapper>
         {appsData.map(({ id, title, image }) => (
-          <CardWrapper toggled={toggled}>
+          <CardWrapper>
             <AppCard key={id} title={title} image={image} />
           </CardWrapper>
         ))}
@@ -28,22 +23,9 @@ export const Dashboard = () => {
   )
 }
 
-Dashboard.propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.object.isRequired,
-  image: PropTypes.object.isRequired,
-}
-
 const Container = styled.div`
+  height: 100%;
   padding: 50px;
-  background: #ececec;
-  ${(props) => {
-    if (props.toggled) {
-      return `
-            background: black;  
-            `
-    }
-  }};
 `
 
 const Header = styled.div`
@@ -56,14 +38,6 @@ const Title = styled.div`
   font-size: 40px;
   text-align: center;
   width: calc(100% / 3);
-
-  ${(props) => {
-    if (props.toggled) {
-      return `
-            color: #ecf0f3;  
-            `
-    }
-  }};
 
   @media screen and (max-width: 768px) {
     width: calc(100% / 2);
@@ -86,14 +60,6 @@ const AppCardsWrapper = styled.div`
 
 const CardWrapper = styled.div`
   width: calc(100% / 5);
-
-  ${(props) => {
-    if (props.toggled) {
-      return `
-            color: #ecf0f3;  
-            `
-    }
-  }}
 
   @media screen and (max-width: 1199px) {
     width: calc(100% / 5);
