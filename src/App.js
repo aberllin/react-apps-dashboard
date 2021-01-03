@@ -3,6 +3,7 @@ import { Dashboard } from './modules/Dashboard'
 import { ThemeProvider } from 'styled-components'
 import { themes } from './styles/theme'
 import { GlobalStyles } from './styles/global'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 function App() {
   const [theme, setTheme] = useState('light')
