@@ -16,12 +16,14 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={themes[theme]}>
-      <>
-        <GlobalStyles />
-        <Dashboard changeTheme={changeTheme} theme={theme} />
-      </>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={themes[theme]}>
+        <>
+          <GlobalStyles />
+          <Dashboard changeTheme={changeTheme} theme={theme} />
+        </>
+      </ThemeProvider>
+    </Router>
   )
 }
 
