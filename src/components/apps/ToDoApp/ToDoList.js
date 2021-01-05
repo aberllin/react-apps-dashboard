@@ -1,15 +1,20 @@
 import React from 'react'
-import { FiPlus } from 'react-icons/fi'
+import { Todo } from './Todo'
 
-export const ToDoList = () => {
+export const ToDoList = ({ todos, setTodos }) => {
   return (
     <div>
-      <div>
-        <input type="text" placeholder="Enter your note here" />
-        <button type="submit">
-          <FiPlus />
-        </button>
-      </div>
+      <ul>
+        {todos.map((todo) => (
+          <Todo
+            todos={todos}
+            setTodos={setTodos}
+            todo={todo}
+            text={todo.text}
+            key={todo.id}
+          />
+        ))}
+      </ul>
     </div>
   )
 }

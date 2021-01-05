@@ -1,10 +1,10 @@
 import forest from '../images/forest.jpg'
 import forest1 from '../images/forest1.jpg'
 import forest2 from '../images/forest2.jpg'
-import { ToDoList } from '../components/apps/ToDoApp/ToDoList'
+import { ToDoApp } from '../components/apps/ToDoApp/ToDoApp'
 
 const appsData = [
-  { id: 1, title: 'To Do List', image: forest, app: <ToDoList /> },
+  { id: 1, title: 'To Do List', image: forest, app: <ToDoApp /> },
   { id: 2, title: 'Calculator', image: forest },
   { id: 3, title: 'Calculator', image: forest },
   { id: 4, title: 'Calculator', image: forest },

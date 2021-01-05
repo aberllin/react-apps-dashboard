@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link, Route } from 'react-router-dom'
-import { IoCloseCircleOutline } from 'react-icons/io5'
 import { AppWindow } from './AppWindow.js'
 
 export const AppCard = ({ image, title, app }) => {
