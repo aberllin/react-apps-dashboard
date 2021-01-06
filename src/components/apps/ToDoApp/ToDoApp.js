@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { Form } from './Form'
 import { ToDoList } from './ToDoList'
+import styled from 'styled-components'
 
 export const ToDoApp = () => {
   const [inputText, setInputText] = useState('')
   const [todos, setTodos] = useState([])
 
   return (
-    <div>
+    <AppWrapper>
       <Form
         inputText={inputText}
         setInputText={setInputText}
@@ -15,6 +16,12 @@ export const ToDoApp = () => {
         setTodos={setTodos}
       />
       <ToDoList todos={todos} setTodos={setTodos} />
-    </div>
+    </AppWrapper>
   )
 }
+
+const AppWrapper = styled.div`
+  padding: 6% 0 0;
+  margin: auto;
+  width: 400px;
+`
