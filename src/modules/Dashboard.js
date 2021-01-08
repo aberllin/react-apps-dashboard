@@ -32,6 +32,13 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `
 
 const Title = styled.div`
@@ -46,7 +53,7 @@ const Title = styled.div`
 
   @media screen and (max-width: 600px) {
     width: 100%;
-    font-size: 25px;
+    margin-bottom: 20px;
   }
 `
 

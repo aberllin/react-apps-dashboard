@@ -20,7 +20,6 @@ export const Form = ({ inputText, setInputText, todos, setTodos }) => {
     }
     setInputText('')
   }
-
   return (
     <FormWrapper>
       <StyledInput
