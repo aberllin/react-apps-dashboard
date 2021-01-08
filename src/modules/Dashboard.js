@@ -1,30 +1,37 @@
 import React from 'react'
 import styled from 'styled-components'
 import { AppCard } from '../components/AppCard'
-import forest from '../images/forest.jpg'
-import forest1 from '../images/forest1.jpg'
-import forest2 from '../images/forest2.jpg'
+import appsData from './appsData.js'
+import Toggle from '../components/Toggle'
 
-const appsData = [
-  { id: 1, title: 'Calculator', image: forest },
-  { id: 2, title: 'Calculator', image: forest },
-  { id: 3, title: 'Calculator', image: forest },
-  { id: 4, title: 'Calculator', image: forest },
-  { id: 5, title: 'Calculator', image: forest },
-  { id: 6, title: 'Timer', image: forest1 },
-  { id: 7, title: 'Timer', image: forest1 },
-  { id: 8, title: 'Timer', image: forest1 },
-  { id: 9, title: 'Timer', image: forest1 },
-  { id: 10, title: 'Timer', image: forest1 },
-  { id: 11, title: 'Weather', image: forest2 },
-  { id: 12, title: 'Weather', image: forest2 },
-  { id: 13, title: 'Weather', image: forest2 },
-  { id: 14, title: 'Weather', image: forest2 },
-  { id: 15, title: 'Weather', image: forest2 },
-]
+export const Dashboard = ({ changeTheme, theme }) => {
+  return (
+    <Container>
+      <Header>
+        <Title>Apps Dashboard</Title>
+        <Toggle onClick={changeTheme} theme={theme} />
+      </Header>
+
+      <AppCardsWrapper>
+        {appsData.map(({ id, title, image }) => (
+          <CardWrapper>
+            <AppCard key={id} title={title} image={image} />
+          </CardWrapper>
+        ))}
+      </AppCardsWrapper>
+    </Container>
+  )
+}
 
 const Container = styled.div`
+  height: 100%;
   padding: 50px;
+`
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const Title = styled.div`
@@ -74,18 +81,3 @@ const CardWrapper = styled.div`
     width: 100%;
   }
 `
-
-export const Dashboard = () => {
-  return (
-    <Container>
-      <Title>Apps Dashboard</Title>
-      <AppCardsWrapper>
-        {appsData.map((app) => (
-          <CardWrapper>
-            <AppCard key={app.id} title={app.title} image={app.image} />
-          </CardWrapper>
-        ))}
-      </AppCardsWrapper>
-    </Container>
-  )
-}
