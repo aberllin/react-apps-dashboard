@@ -13,9 +13,9 @@ export const Dashboard = ({ changeTheme, theme }) => {
       </Header>
 
       <AppCardsWrapper>
-        {appsData.map(({ id, title, image }) => (
+        {appsData.map(({ id, title, image, app }) => (
           <CardWrapper>
-            <AppCard key={id} title={title} image={image} />
+            <AppCard key={id} title={title} image={image} app={app} />
           </CardWrapper>
         ))}
       </AppCardsWrapper>

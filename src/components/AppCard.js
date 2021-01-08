@@ -1,14 +1,32 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Route, Link } from 'react-router-dom'
+import { AppWindow } from './AppWindow/AppWindow'
 
-export const AppCard = ({ image, title }) => {
+export const AppCard = ({ image, title, app }) => {
+  const urlTitle = title
+    .replace(/ /gs, '_')
+    .replace(/[,.:]+/g, '')
+    .toLowerCase()
+
   return (
     <CardContainer>
-      <Image background={image} />
-      <div>{title}</div>
+      <StyledLink to={urlTitle}>
+        <Image background={image} />
+        {title}
+      </StyledLink>
+      <Route
+        path={`/${urlTitle}`}
+        render={(props) => <AppWindow {...props} app={app} title={title} />}
+      />
     </CardContainer>
   )
 }
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.textColor};
+`
 
 const Image = styled.div`
   border: 1px solid #000;
@@ -21,7 +39,7 @@ const Image = styled.div`
   width: 150px;
   height: 150px;
   margin-bottom: 5px;
-  transition: ease;
+  transition: ease-in-out 0.2s;
   cursor: pointer;
 
   &:hover {
