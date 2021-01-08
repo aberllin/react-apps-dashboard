@@ -34,7 +34,7 @@ const Circle = styled.div`
   ${(props) => {
     if (props.toggled === 'dark') {
       return `
-            background: #1CCBB1;
+            background: #001628;
             transform: translate(37px, 0);          
           `
     }

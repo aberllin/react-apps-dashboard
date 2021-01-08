@@ -4,21 +4,28 @@ import styled from 'styled-components'
 
 export const Form = ({ inputText, setInputText, todos, setTodos }) => {
   const inputTextHandler = (e) => {
-    setInputText(e.target.value)
+    if (!inputText && e.target.value === ' ') {
+      return false
+    } else {
+      setInputText(e.target.value)
+    }
   }
 
   const submitTodoHandler = (e) => {
     e.preventDefault()
-    setTodos([...todos, { text: inputText, id: Date.now(), complete: false }])
+    if (inputText === '') {
+      return ''
+    } else {
+      setTodos([...todos, { text: inputText, id: Date.now(), complete: false }])
+    }
     setInputText('')
-    console.log(e)
   }
 
   return (
     <FormWrapper>
       <StyledInput
         value={inputText}
-        type="text "
+        type="text"
         placeholder="Enter your note here..."
         onChange={inputTextHandler}
       />
@@ -43,9 +50,10 @@ const StyledInput = styled.input`
   background: #c4c4c4;
   width: 85%;
   border: 0;
-  padding: 15px;
+  height: 48px;
   box-sizing: border-box;
   font-size: 14px;
+  padding: 15px;
 `
 
 const SubmitButton = styled.button`
@@ -53,9 +61,9 @@ const SubmitButton = styled.button`
   color: ${({ theme }) => theme.bodyColor};
   cursor: pointer;
   display: flex;
-  justify-content: center
+  height: 48px;
+  justify-content: center;
   align-items: center;
-  padding: 11px;
   width: 15%;
   outline: 0;
   border: 0;

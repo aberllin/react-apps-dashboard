@@ -39,7 +39,6 @@ const Image = styled.div`
   width: 150px;
   height: 150px;
   margin-bottom: 5px;
-  transition: ease-in-out 0.2s;
   cursor: pointer;
 
   &:hover {
