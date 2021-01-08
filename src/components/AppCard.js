@@ -28,6 +28,15 @@ const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.textColor};
 `
 
+export const AppCard = ({ image, title }) => {
+  return (
+    <CardContainer>
+      <Image background={image} />
+      <div>{title}</div>
+    </CardContainer>
+  )
+}
+
 const Image = styled.div`
   border: 1px solid #000;
   background: url(${(props) => props.background});
