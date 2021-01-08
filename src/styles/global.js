@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
    input, button {
-  margin: 0;
+    margin: 0;
 	padding: 0;
 	
 	

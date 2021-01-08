@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link, Route } from 'react-router-dom'
-import { AppWindow } from './AppWindow.js'
+import { Route, Link } from 'react-router-dom'
+import { AppWindow } from './AppWindow/AppWindow'
 
 export const AppCard = ({ image, title, app }) => {
   const urlTitle = title
