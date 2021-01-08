@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Route, Link } from 'react-router-dom'
-import { AppWindow } from './AppWindow'
+import { AppWindow } from './AppWindow/AppWindow'
 
 export const AppCard = ({ image, title, app }) => {
   const urlTitle = title
@@ -27,15 +27,6 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.textColor};
 `
-
-export const AppCard = ({ image, title }) => {
-  return (
-    <CardContainer>
-      <Image background={image} />
-      <div>{title}</div>
-    </CardContainer>
-  )
-}
 
 const Image = styled.div`
   border: 1px solid #000;

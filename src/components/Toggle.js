@@ -35,7 +35,6 @@ const ToggleButton = styled.div`
   border-radius: 50px;
   position: relative;
   cursor: pointer;
-  box-shadow: inset 2px 2px 5px #d4dbe7, inset -2px -2px 5px #fdfefe;
   background: #1ccbb1;
   ${(props) => {
     if (props.toggled === 'dark') {
@@ -54,7 +53,6 @@ const Circle = styled.div`
   height: 32px;
   top: 4px;
   left: 6px;
-  box-shadow: 2px 2px 5px #d4dbe7, -2px -2px 5px #fdfefe;
   transition: ease-in 0.2s;
   ${(props) => {
     if (props.toggled === 'dark') {
