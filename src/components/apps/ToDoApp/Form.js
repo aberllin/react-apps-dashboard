@@ -26,6 +26,7 @@ export const Form = ({ inputText, setInputText, todos, setTodos }) => {
         value={inputText}
         type="text"
         placeholder="Enter your note here..."
+        autoFocus
         onChange={inputTextHandler}
       />
       <SubmitButton onClick={submitTodoHandler} type="submit">

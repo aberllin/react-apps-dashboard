@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import { FiTrash } from 'react-icons/fi'
+import { BiCircle } from 'react-icons/bi'
 
 export const Todo = ({ text, todos, todo, setTodos }) => {
   const completeHandler = () => {
@@ -22,7 +23,11 @@ export const Todo = ({ text, todos, todo, setTodos }) => {
   return (
     <TodoWrapper>
       <CompleteButton todo={todo} onClick={completeHandler}>
-        <AiOutlineCheckCircle />
+        {todo.complete ? (
+          <AiOutlineCheckCircle style={{ color: 'green' }} />
+        ) : (
+          <BiCircle />
+        )}
       </CompleteButton>
       <TodoText todo={todo}>{text}</TodoText>
       <DeleteButton onClick={deleteHandler}>
@@ -36,16 +41,10 @@ const TodoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 18pt;
   padding: 5px 0;
 `
-const CompleteButton = styled(AiOutlineCheckCircle)`
-  background: none;
+const CompleteButton = styled.div`
   cursor: pointer;
-
-  &:hover {
-    color: green;
-  }
 `
 
 const DeleteButton = styled(FiTrash)`
@@ -59,6 +58,11 @@ const DeleteButton = styled(FiTrash)`
 
 const TodoText = styled.li`
   list-style: none;
+  font-size: 18pt;
+
+  @media screen and (max-width: 600px) {
+    font-size: 14pt;
+  }
 
   text-decoration: ${(props) =>
     props.todo.complete ? 'line-through' : 'none'};

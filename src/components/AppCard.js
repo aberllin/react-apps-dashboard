@@ -39,7 +39,6 @@ const Image = styled.div`
   background-size: cover;
   border-radius: 50%;
   border: 1px solid #faf4f4;
-  box-shadow: ${({ theme }) => theme.cardShadow};
   width: 150px;
   height: 150px;
   margin-bottom: 5px;

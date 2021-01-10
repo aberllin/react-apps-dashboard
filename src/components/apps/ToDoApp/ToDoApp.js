@@ -24,4 +24,9 @@ const AppWrapper = styled.div`
   padding: 6% 0 0;
   margin: auto;
   width: 400px;
+
+  @media screen and (max-width: 600px) {
+    width: 300px;
+    padding: 8% 8%;
+  }
 `
