@@ -3,8 +3,16 @@ import styled from 'styled-components'
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import { FiTrash } from 'react-icons/fi'
 import { BiCircle } from 'react-icons/bi'
+import {Todo as TodoType} from './Form'
 
-export const Todo = ({ text, todos, todo, setTodos }) => {
+interface Props {
+  todos: TodoType[]
+  setTodos: (value: TodoType[]) => void
+  text: string
+  todo: TodoType
+}
+
+export const Todo = ({ text, todos, todo, setTodos } : Props) => {
   const completeHandler = () => {
     setTodos(
       todos.map((el) => {
@@ -22,7 +30,7 @@ export const Todo = ({ text, todos, todo, setTodos }) => {
 
   return (
     <TodoWrapper>
-      <CompleteButton todo={todo} onClick={completeHandler}>
+      <CompleteButton onClick={completeHandler}>
         {todo.complete ? (
           <AiOutlineCheckCircle style={{ color: 'green' }} />
         ) : (
@@ -56,7 +64,7 @@ const DeleteButton = styled(FiTrash)`
   }
 `
 
-const TodoText = styled.li`
+const TodoText = styled.li<{todo: TodoType}>`
   list-style: none;
   font-size: 18pt;
 

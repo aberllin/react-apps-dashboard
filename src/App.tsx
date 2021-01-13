@@ -6,7 +6,7 @@ import { GlobalStyles } from './styles/global'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 function App() {
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
   function changeTheme() {
     if (theme === 'light') {
       setTheme('dark')
