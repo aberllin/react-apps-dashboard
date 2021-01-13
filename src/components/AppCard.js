@@ -26,6 +26,10 @@ export const AppCard = ({ image, title, app }) => {
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.textColor};
+
+  &:hover {
+    color: #1ccbb1;
+  }
 `
 
 const Image = styled.div`
@@ -35,11 +39,10 @@ const Image = styled.div`
   background-size: cover;
   border-radius: 50%;
   border: 1px solid #faf4f4;
-  box-shadow: ${({ theme }) => theme.cardShadow};
   width: 150px;
   height: 150px;
   margin-bottom: 5px;
-  transition: ease-in-out 0.2s;
+  transition: ease 0.2s;
   cursor: pointer;
 
   &:hover {
