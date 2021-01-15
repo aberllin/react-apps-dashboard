@@ -61,7 +61,7 @@ const FormWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 750px;
   margin: auto;
 `
 

@@ -13,6 +13,9 @@ interface Props {
 }
 
 export const Todo = ({ text, todos, todo, setTodos } : Props) => {
+
+ 
+
   const completeHandler = () => {
     setTodos(
       todos.map((el) => {
@@ -28,6 +31,16 @@ export const Todo = ({ text, todos, todo, setTodos } : Props) => {
     setTodos(todos.filter((el) => el.id !== todo.id))
   }
 
+  const textEdit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTodos(
+      todos.map(el => {
+        if (el.id === todo.id) {
+          return {...el, text: e.target.value}
+        } return el
+      })
+    )
+  }
+
   return (
     <TodoWrapper>
       <CompleteButton onClick={completeHandler}>
@@ -37,7 +50,7 @@ export const Todo = ({ text, todos, todo, setTodos } : Props) => {
           <BiCircle />
         )}
       </CompleteButton>
-      <TodoText todo={todo}>{text}</TodoText>
+      <TodoText onChange={textEdit} type="text" todo={todo} value={text} />
       <DeleteButton onClick={deleteHandler}>
         <FiTrash />
       </DeleteButton>
@@ -64,9 +77,13 @@ const DeleteButton = styled(FiTrash)`
   }
 `
 
-const TodoText = styled.li<{todo: TodoType}>`
-  list-style: none;
+const TodoText = styled.input<{todo: TodoType}>`
   font-size: 18pt;
+  border: none;
+  background: none;
+  outline: none;
+
+  color: ${({ theme }) => theme.textColor};
 
   @media screen and (max-width: 600px) {
     font-size: 14pt;
