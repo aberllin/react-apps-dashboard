@@ -14,8 +14,6 @@ interface Props {
 
 export const Todo = ({ text, todos, todo, setTodos } : Props) => {
 
- 
-
   const completeHandler = () => {
     setTodos(
       todos.map((el) => {
@@ -50,7 +48,7 @@ export const Todo = ({ text, todos, todo, setTodos } : Props) => {
           <BiCircle />
         )}
       </CompleteButton>
-      <TodoText onChange={textEdit} type="text" todo={todo} value={text} />
+      <TodoText  onChange={textEdit} type="text" todo={todo} value={text}  />
       <DeleteButton onClick={deleteHandler}>
         <FiTrash />
       </DeleteButton>
@@ -66,11 +64,19 @@ const TodoWrapper = styled.div`
 `
 const CompleteButton = styled.div`
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    font-size: 18px;
+  }
 `
 
 const DeleteButton = styled(FiTrash)`
   background: none;
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    font-size: 15px;
+  }
 
   &:hover {
     color: red;
