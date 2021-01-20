@@ -5,9 +5,12 @@ import styled from 'styled-components'
 import {Todo} from './Form'
 
 
+
 export const ToDoApp = () => {
   const [inputText, setInputText] = useState<string>('')
   const [todos, setTodos] = useState<Todo[]>([])
+
+  console.log(Object.keys(todos))
 
   useEffect(() => {
     const inStorage = localStorage.getItem('todos')
@@ -19,6 +22,8 @@ export const ToDoApp = () => {
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
+
+  
 
   return (
     <AppWrapper>
@@ -36,11 +41,11 @@ export const ToDoApp = () => {
 const AppWrapper = styled.div`
   padding: 6% 0 0;
   margin: auto;
-  width: 750px;
+  width: 500px;
 
 
   @media screen and (max-width: 820px) {
-    width: 600px;
+    width: 400px;
     padding: 8% 8%;
   }
 

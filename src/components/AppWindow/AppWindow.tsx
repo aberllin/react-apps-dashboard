@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { CloseAppButton } from './CloseAppButton'
 import { AppType } from '../../modules/appsData'
+import { MenuButton } from './MenuComponents/MenuButton'
 
 
 interface Props {
@@ -17,14 +18,15 @@ export const AppWindow = ({ title, app } : Props ) => {
         <CloseAppButton />
       </AppCardNav>
       <div>{app}</div>
+      <MenuButton />
     </AppWindowWrapper>
   )
 }
 
 const AppCardNav = styled.div`
   display: flex;
-  justify-content: space-around;
-  padding: 50px;
+  justify-content: space-between;
+  padding: 60px;
 `
 
 const AppWindowWrapper = styled.div`

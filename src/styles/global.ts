@@ -7,7 +7,7 @@ export const GlobalStyles = createGlobalStyle`
         box-sizing: border-box;
     }
 
-   input, button {
+   input, button, ul {
     margin: 0;
 	padding: 0;
 	
