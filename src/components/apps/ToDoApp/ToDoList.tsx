@@ -1,8 +1,14 @@
 import React from 'react'
 import { Todo } from './Todo'
 import styled from 'styled-components'
+import {Todo as TodoType} from './Form'
 
-export const ToDoList = ({ todos, setTodos }) => {
+interface Props {
+todos: TodoType[]
+setTodos: (value: TodoType[]) => void
+}
+
+export const ToDoList = ({ todos, setTodos } : Props) => {
   return (
     <TodoListWrapper>
       <StyledUl>

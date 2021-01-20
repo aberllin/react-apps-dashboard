@@ -1,8 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import { CloseAppButton } from './CloseAppButton'
+import { AppType } from '../../modules/appsData'
 
-export const AppWindow = ({ title, app }) => {
+
+interface Props {
+  title: AppType['title']
+  app: AppType['app']
+}
+
+export const AppWindow = ({ title, app } : Props ) => {
   return (
     <AppWindowWrapper>
       <AppCardNav>

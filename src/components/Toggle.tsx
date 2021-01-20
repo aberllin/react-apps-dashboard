@@ -1,7 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-function Toggle({ onClick, theme }) {
+interface Props {
+  onClick: () => void
+  theme: string
+}
+
+function Toggle({ onClick, theme }: Props) {
   return (
     <ButtonWrapper>
       <ToggleButton onClick={onClick} toggled={theme}>
@@ -29,7 +34,7 @@ const ButtonWrapper = styled.div`
   }
 `
 
-const ToggleButton = styled.div`
+const ToggleButton = styled.div<{toggled: string}>`
   height: 40px;
   width: 80px;
   border-radius: 50px;
@@ -45,7 +50,7 @@ const ToggleButton = styled.div`
   }}
 `
 
-const Circle = styled.div`
+const Circle = styled.div<{toggled: string}>`
   border-radius: 50%;
   background: #ececec;
   position: absolute;

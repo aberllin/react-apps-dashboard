@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { Form } from './Form'
 import { ToDoList } from './ToDoList'
 import styled from 'styled-components'
+import {Todo} from './Form'
+
 
 export const ToDoApp = () => {
-  const [inputText, setInputText] = useState('')
-  const [todos, setTodos] = useState([])
+  const [inputText, setInputText] = useState<string>('')
+  const [todos, setTodos] = useState<Todo[]>([])
 
   return (
     <AppWrapper>

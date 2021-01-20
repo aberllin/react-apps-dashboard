@@ -1,3 +1,4 @@
+
 export const lightTheme = {
   bodyColor: '#ececec',
   textColor: '#181a18',

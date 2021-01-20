@@ -2,8 +2,21 @@ import React from 'react'
 import { FiPlus } from 'react-icons/fi'
 import styled from 'styled-components'
 
-export const Form = ({ inputText, setInputText, todos, setTodos }) => {
-  const inputTextHandler = (e) => {
+export interface Todo {
+    text: string,
+    id: number
+    complete: boolean
+}
+
+interface Props {
+  inputText: string
+  setInputText: (value: string) => void
+  todos: Todo[]
+  setTodos: (value: Todo[]) => void
+}
+
+export const Form = ({ inputText, setInputText, todos, setTodos } : Props) => {
+  const inputTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!inputText && e.target.value === ' ') {
       return false
     } else {
@@ -11,7 +24,7 @@ export const Form = ({ inputText, setInputText, todos, setTodos }) => {
     }
   }
 
-  const submitTodoHandler = (e) => {
+  const submitTodoHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault()
     if (inputText === '') {
       return ''
@@ -19,6 +32,12 @@ export const Form = ({ inputText, setInputText, todos, setTodos }) => {
       setTodos([...todos, { text: inputText, id: Date.now(), complete: false }])
     }
     setInputText('')
+  }
+
+  const keyPressHandler = (e : React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      submitTodoHandler(e)
+    }
   }
   return (
     <FormWrapper>
@@ -28,6 +47,7 @@ export const Form = ({ inputText, setInputText, todos, setTodos }) => {
         placeholder="Enter your note here..."
         autoFocus
         onChange={inputTextHandler}
+        onKeyPress={keyPressHandler}
       />
       <SubmitButton onClick={submitTodoHandler} type="submit">
         <AddIcon />
