@@ -5,18 +5,14 @@ import { themes } from './styles/theme'
 import { GlobalStyles } from './styles/global'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-enum Theme {
-  light = 'light',
-  dark = 'dark',
-}
 
 function App() {
-  const [theme, setTheme] = useState(Theme.light)
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
   function changeTheme() {
-    if (theme === Theme.light) {
-      setTheme(Theme.dark)
+    if (theme === 'light') {
+      setTheme('dark')
     } else {
-      setTheme(Theme.light)
+      setTheme('light')
     }
   }
 
