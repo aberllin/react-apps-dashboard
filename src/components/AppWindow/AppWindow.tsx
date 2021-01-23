@@ -25,7 +25,7 @@ export const AppWindow = ({ title, app } : Props ) => {
 
 const AppCardNav = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 50px;
 `
 
