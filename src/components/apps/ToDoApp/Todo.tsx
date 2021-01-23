@@ -5,6 +5,7 @@ import { FiTrash } from 'react-icons/fi'
 import { BiCircle } from 'react-icons/bi'
 import { Todo as TodoType } from './Form'
 
+
 interface Props {
   todos: TodoType[]
   setTodos: (value: TodoType[]) => void
@@ -65,6 +66,40 @@ export const Todo = React.forwardRef<HTMLInputElement, Props>(
     )
   },
 )
+}
+
+export const Todo = ({ text, todos, todo, setTodos } : Props) => {
+  const completeHandler = () => {
+    setTodos(
+      todos.map((el) => {
+        if (el.id === todo.id) {
+          return { ...el, complete: !el.complete }
+        }
+        return el
+      }),
+    )
+  }
+
+  const deleteHandler = () => {
+    setTodos(todos.filter((el) => el.id !== todo.id))
+  }
+
+  return (
+    <TodoWrapper>
+      <CompleteButton onClick={completeHandler}>
+        {todo.complete ? (
+          <AiOutlineCheckCircle style={{ color: 'green' }} />
+        ) : (
+          <BiCircle />
+        )}
+      </CompleteButton>
+      <TodoText todo={todo}>{text}</TodoText>
+      <DeleteButton onClick={deleteHandler}>
+        <FiTrash />
+      </DeleteButton>
+    </TodoWrapper>
+  )
+}
 
 const TodoWrapper = styled.div`
   display: flex;

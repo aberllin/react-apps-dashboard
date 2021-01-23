@@ -25,8 +25,8 @@ export const AppWindow = ({ title, app } : Props ) => {
 
 const AppCardNav = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 60px;
+  justify-content: space-around;
+  padding: 50px;
 `
 
 const AppWindowWrapper = styled.div`
@@ -41,3 +41,4 @@ const AppWindowWrapper = styled.div`
   color: ${({ theme }) => theme.textColor};
   background-color: ${({ theme }) => theme.bodyColor};
 `
+

@@ -1,4 +1,4 @@
-import React, {createRef} from 'react'
+import React from 'react'
 import { Todo } from './Todo'
 import styled from 'styled-components'
 import {Todo as TodoType} from './Form'
@@ -9,7 +9,7 @@ setTodos: (value: TodoType[]) => void
 }
 
 export const ToDoList = ({ todos, setTodos } : Props) => {
-
+  
   const refs = todos.map(() => React.createRef<HTMLInputElement>())
 
   const changeFocus = (index: number) => {
