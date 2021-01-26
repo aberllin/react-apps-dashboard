@@ -24,7 +24,7 @@ export const MenuModal = ({open, onClose}: Props) => {
         return () => {
             document.removeEventListener("click", onClickOutside);
           };
-    }, [onClickOutside]) 
+    }, [onClickOutside, open]) 
 
     return (
         <>
