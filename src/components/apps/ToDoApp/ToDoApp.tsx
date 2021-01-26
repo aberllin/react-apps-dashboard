@@ -40,10 +40,13 @@ const AppWrapper = styled.div`
 
   @media screen and (max-width: 820px) {
     width: 400px;
-    padding: 8% 8%;
   }
 
   @media screen and (max-width: 600px) {
+    width: 300px;
+  }
+
+  @media screen and (max-width: 400px) {
     width: 300px;
     padding: 8% 8%;
   }

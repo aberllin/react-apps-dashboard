@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import { CloseAppButton } from './CloseAppButton'
 import { AppType } from '../../modules/appsData'
@@ -11,6 +11,11 @@ interface Props {
 }
 
 export const AppWindow = ({ title, app } : Props ) => {
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+  }, [])
+
   return (
     <AppWindowWrapper>
       <AppCardNav>

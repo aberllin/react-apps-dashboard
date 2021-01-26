@@ -5,7 +5,7 @@ import { IoCloseCircleOutline } from 'react-icons/io5'
 
 export const CloseAppButton = () => {
   return (
-    <Link to="/">
+    <Link onClick={() => document.body.style.overflow = 'auto' } to="/">
       <CloseIcon />
     </Link>
   )

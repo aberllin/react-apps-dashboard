@@ -53,4 +53,22 @@ const StyledUl = styled.ul`
 `
 const TodoListWrapper = styled.div`
   margin: 25px 0;
+  max-height: 300px;
+  overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #c4c4c4; 
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1ccbb1; 
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1ccbb1; 
+  }
 `

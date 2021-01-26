@@ -12,7 +12,7 @@ export const AppCard = ({ id, image, title, app }: AppType) => {
 
   return (
     <CardContainer>
-      <StyledLink to={urlTitle}>
+      <StyledLink onClick={() => document.body.style.overflow = 'hidden' } to={urlTitle}>
         <Image background={image} />
         {title}
       </StyledLink>
