@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 
 interface Props {
@@ -9,12 +9,15 @@ interface Props {
 export const MenuModal = ({open, onClose}: Props) => {
     const modalRef = React.createRef<HTMLInputElement>();
 
-    const onClickOutside = (e: Event) => {
-        if (modalRef.current && modalRef.current.contains(e.target as Node)) {
-            return;
-        }
-        if (open) return onClose()
-    }
+
+    const onClickOutside = useCallback(
+        (e: Event) => {
+            if (modalRef.current && modalRef.current.contains(e.target as Node)) {
+                return;
+            }
+            if (open) return onClose()
+        }, [modalRef, onClose, open]
+    )
 
     useEffect(() => {
       if (open)  {
