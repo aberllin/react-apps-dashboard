@@ -20,10 +20,11 @@ export const ShareModal = ({ isOpen, setShowShareModal }: Props) => {
 
   const onSubmit = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
+    const isValid = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i.test(inputValue)
 
     if (!inputValue) {
       setErrors('Email required')
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(inputValue)) {
+    } else if (isValid) {
       setErrors('Email address is invalid')
     } else {
       setIsSuccess(true)

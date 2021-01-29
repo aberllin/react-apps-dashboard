@@ -8,7 +8,7 @@ export const MenuButton = () => {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
 
   const openMenu = () => {
-    setShowMenu((prev) => !prev)
+    setShowMenu(true)
   }
 
   return (
