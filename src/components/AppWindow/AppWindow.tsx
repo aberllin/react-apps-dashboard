@@ -2,15 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import { CloseAppButton } from './CloseAppButton'
 import { AppType } from '../../modules/appsData'
-import { MenuButton } from './MenuComponents/MenuButton'
-
 
 interface Props {
   title: AppType['title']
   app: AppType['app']
 }
 
-export const AppWindow = ({ title, app } : Props ) => {
+export const AppWindow = ({ title, app }: Props) => {
   return (
     <AppWindowWrapper>
       <AppCardNav>
@@ -18,7 +16,6 @@ export const AppWindow = ({ title, app } : Props ) => {
         <CloseAppButton />
       </AppCardNav>
       <div>{app}</div>
-      <MenuButton />
     </AppWindowWrapper>
   )
 }
@@ -41,4 +38,3 @@ const AppWindowWrapper = styled.div`
   color: ${({ theme }) => theme.textColor};
   background-color: ${({ theme }) => theme.bodyColor};
 `
-

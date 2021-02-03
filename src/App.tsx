@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 enum Theme {
   light = 'light',
-  dark = 'dark'
+  dark = 'dark',
 }
 
 function App() {
@@ -19,8 +19,7 @@ function App() {
       setTheme(Theme.light)
     }
   }
-  
-  
+
   useEffect(() => {
     const inStorage = localStorage.getItem('theme')
     const initialValue: any = inStorage ? inStorage : 'light'
@@ -30,7 +29,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem('theme', theme)
   }, [theme])
-  
+
   return (
     <Router>
       <ThemeProvider theme={themes[theme]}>
