@@ -22,7 +22,7 @@ function App() {
 
   useEffect(() => {
     const inStorage = localStorage.getItem('theme')
-    const initialValue: any = inStorage ? inStorage : 'light'
+    const initialValue: Theme = inStorage ? (inStorage as Theme) : Theme.light
     setTheme(initialValue)
   }, [])
 

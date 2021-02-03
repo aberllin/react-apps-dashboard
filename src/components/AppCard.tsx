@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Route, Link } from 'react-router-dom'
-import { AppWindow } from './AppWindow/AppWindow'
+import { AppWindow } from './app_window/AppWindow'
 import { AppType } from '../modules/appsData'
 
 export const AppCard = ({ id, image, title, app }: AppType) => {
@@ -35,10 +35,7 @@ const StyledLink = styled(Link)`
   }
 `
 
-const Image =
-  styled.div <
-  { background: string } >
-  `
+const Image = styled.div<{ background: string }>`
   border: 1px solid #000;
   background: url(${(props) => props.background});
   background-repeat: no-repeat;
