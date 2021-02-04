@@ -13,6 +13,6 @@ export const useOutsideClick = (ref: React.RefObject<HTMLDivElement> , callback:
         return () => {
             document.removeEventListener('click', handleClick);
         }
-    }, [handleClick])
+    })
 };
 
