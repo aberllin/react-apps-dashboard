@@ -4,7 +4,7 @@ import { Route, Link } from 'react-router-dom'
 import { AppWindow } from './app_window/AppWindow'
 import { AppType } from '../modules/appsData'
 
-export const AppCard = ({ id, image, title, app }: AppType) => {
+export const AppCard = ({ id, image, title, app, options }: AppType) => {
   const urlTitle = title
     .replace(/ /gs, '_')
     .replace(/[,.:]+/g, '')
@@ -19,7 +19,13 @@ export const AppCard = ({ id, image, title, app }: AppType) => {
       <Route
         path={`/${urlTitle}`}
         render={(props) => (
-          <AppWindow {...props} app={app} title={title} key={id} />
+          <AppWindow
+            {...props}
+            app={app}
+            title={title}
+            key={id}
+            options={options}
+          />
         )}
       />
     </CardContainer>

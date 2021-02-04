@@ -1,21 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { CloseAppButton } from './CloseAppButton'
 import { AppType } from '../../modules/appsData'
+import { Menu } from '../menu_options/menu/Menu'
 
 interface Props {
   title: AppType['title']
   app: AppType['app']
+  options: AppType['options']
 }
 
-export const AppWindow = ({ title, app }: Props) => {
+export const AppWindow = ({ title, app, options }: Props) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+  }, [])
+
   return (
     <AppWindowWrapper>
       <AppCardNav>
         <div>{title}</div>
         <CloseAppButton />
       </AppCardNav>
-      <div>{app}</div>
+      <div>{app ? app : 'Coming soon'}</div>
+      <MenuButton>
+        <Menu options={options} />
+      </MenuButton>
     </AppWindowWrapper>
   )
 }
@@ -37,4 +46,10 @@ const AppWindowWrapper = styled.div`
   font-size: 35px;
   color: ${({ theme }) => theme.textColor};
   background-color: ${({ theme }) => theme.bodyColor};
+`
+
+const MenuButton = styled.div`
+  position: fixed;
+  bottom: 60px;
+  left: 60px;
 `

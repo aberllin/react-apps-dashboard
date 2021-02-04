@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Form } from './Form'
 import { ToDoList } from './ToDoList'
 import styled from 'styled-components'
-import {Todo} from './Form'
+import { Todo } from './Form'
 
 export const ToDoApp = () => {
   const [inputText, setInputText] = useState<string>('')
@@ -13,7 +13,6 @@ export const ToDoApp = () => {
     const initialValue = inStorage ? JSON.parse(inStorage) : []
     setTodos(initialValue)
   }, [])
-
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
@@ -37,14 +36,11 @@ const AppWrapper = styled.div`
   margin: auto;
   width: 500px;
 
-
   @media screen and (max-width: 820px) {
     width: 400px;
-    padding: 8% 8%;
   }
 
   @media screen and (max-width: 600px) {
     width: 300px;
-    padding: 8% 8%;
   }
 `
