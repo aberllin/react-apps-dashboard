@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 import { ShareForm } from './ShareForm'
 import { FormSuccess } from './FormSuccess'
 
