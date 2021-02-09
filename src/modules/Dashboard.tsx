@@ -1,16 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
 import { AppCard } from '../components/AppCard'
-import {appsData} from './appsData'
+import { appsData } from './appsData'
 import Toggle from '../components/Toggle'
- 
+
 interface DashboardProps {
   theme: string
   changeTheme: () => void
 }
 
-
-export const Dashboard = ({ changeTheme, theme } : DashboardProps) => {
+export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
   return (
     <Container>
       <Header>
@@ -19,9 +18,15 @@ export const Dashboard = ({ changeTheme, theme } : DashboardProps) => {
       </Header>
 
       <AppCardsWrapper>
-        {appsData.map(({ id, title, image, app }) => (
+        {appsData.map(({ id, title, image, app, options }) => (
           <CardWrapper>
-            <AppCard id={id} title={title} image={image} app={app} />
+            <AppCard
+              options={options}
+              id={id}
+              title={title}
+              image={image}
+              app={app}
+            />
           </CardWrapper>
         ))}
       </AppCardsWrapper>
