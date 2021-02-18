@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import { themes } from './styles/theme'
 import { GlobalStyles } from './styles/global'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { NotificationProvider } from './providers/NotificationProvider'
 
 enum Theme {
   light = 'light',
@@ -35,7 +36,9 @@ function App() {
       <ThemeProvider theme={themes[theme]}>
         <>
           <GlobalStyles />
-          <Dashboard changeTheme={changeTheme} theme={theme} />
+          <NotificationProvider>
+            <Dashboard changeTheme={changeTheme} theme={theme} />
+          </NotificationProvider>
         </>
       </ThemeProvider>
     </Router>
