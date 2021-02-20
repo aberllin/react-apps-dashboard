@@ -1,44 +1,53 @@
 import React from 'react'
 import styled from 'styled-components'
+import { AddToFavorites } from './AddToFavorites'
+import { GHUserType } from './types'
 
 interface Props {
   searchInput: string
-  users: any
+  user: GHUserType | null
   errors: string
 }
 
-export const GHUser = ({ errors, users, searchInput }: Props) => {
-  const user = users.login
-
+export const GHUser = ({ errors, user, searchInput }: Props) => {
   if (!user) {
     return null
   }
 
+  const userLogin = user.login
+
   return (
-    <div>
-      {user.toLowerCase() === searchInput.toLowerCase() && !errors ? (
-        <Wrapper>
-          <Row>
-            <Image background={users.avatar_url} />
-            <Login key={users.id} href={`https://github.com/${searchInput}`}>
-              {users.login}
-            </Login>
-          </Row>
-          <Columns>
-            <Column>
-              <Li>Followers: {users.followers}</Li>
-              <Li>Following: {users.following}</Li>
-            </Column>
-            <Column>
-              <Li>Repos: {users.public_repos}</Li>
-              <Li>Stars: {users.stargazers_count}</Li>
-            </Column>
-          </Columns>
-        </Wrapper>
+    <>
+      {userLogin.toLowerCase() === searchInput.toLowerCase() && !errors ? (
+        <UserWrapper>
+          <Wrapper>
+            <Row>
+              <Image background={user.avatar_url} />
+              <Login
+                key={user.id}
+                href={`https://github.com/${searchInput}`}
+                target="_blank"
+              >
+                {user.login}
+              </Login>
+            </Row>
+            <Columns>
+              <Column>
+                <Li>Followers: {user.followers}</Li>
+                <Li>Following: {user.following}</Li>
+              </Column>
+              <Column>
+                <Li>Repos: {user.public_repos}</Li>
+                <Li>Stars: {user.stargazers_count}</Li>
+              </Column>
+            </Columns>
+          </Wrapper>
+          <AddToFavorites user={user} />
+        </UserWrapper>
       ) : errors ? (
         <ErrorMessage>There is no user with such username</ErrorMessage>
       ) : null}
-    </div>
+    </>
   )
 }
 
@@ -47,7 +56,6 @@ const Wrapper = styled.div`
   max-width: 1000px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   list-style-type: none;
   margin: 30px auto;
@@ -163,4 +171,10 @@ const ErrorMessage = styled.div`
   @media screen and (max-width: 600px) {
     font-size: 15px;
   }
+`
+const UserWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 `

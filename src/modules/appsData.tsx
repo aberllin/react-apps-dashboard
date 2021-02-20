@@ -4,16 +4,19 @@ import forest2 from '../images/forest2.jpg'
 import { ToDoApp } from '../components/apps/ToDoApp/ToDoApp'
 import { ShareOption } from '../components/menu_options/share_option/ShareOption'
 import { GHSearch } from '../components/apps/search_github_account/GHSearch'
+import { ClearFavorites } from '../components/apps/search_github_account/ghsearch_options/ClearFavorites'
 
 export interface AppType {
   id: number
   title: string
   image: string
   app?: JSX.Element
-  options?: {
-    optionTitle: string
-    option: JSX.Element
-  }[]
+  options?: Option[]
+}
+
+export interface Option {
+  optionTitle: string
+  option: JSX.Element
 }
 
 export const appsData: AppType[] = [
@@ -22,14 +25,15 @@ export const appsData: AppType[] = [
     title: 'To Do List',
     image: forest,
     app: <ToDoApp />,
-    options: [
-      {
-        optionTitle: 'Share',
-        option: <ShareOption />,
-      },
-    ],
+    options: [{ optionTitle: 'Share', option: <ShareOption /> }],
   },
-  { id: 2, title: 'Search GitHub Account', image: forest, app: <GHSearch /> },
+  {
+    id: 2,
+    title: 'Search GitHub Account',
+    image: forest,
+    app: <GHSearch />,
+    options: [{ optionTitle: 'Clear Favorites', option: <ClearFavorites /> }],
+  },
   { id: 3, title: 'Calculator', image: forest },
   { id: 4, title: 'Calculator', image: forest },
   { id: 5, title: 'Calculator', image: forest },

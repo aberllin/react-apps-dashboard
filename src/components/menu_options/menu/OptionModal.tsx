@@ -5,31 +5,21 @@ import { ModalWindow } from '../../common/ModalWindow'
 
 interface Props {
   title: string
-  menuOption: JSX.Element
-  isOptionModalOpen: boolean
-  setOpenOptionModal: React.Dispatch<React.SetStateAction<boolean>>
+  modalChildren: JSX.Element
+  onClose: () => void
 }
 
-export const OptionWindow = ({
-  isOptionModalOpen,
-  menuOption,
-  title,
-  setOpenOptionModal,
-}: Props) => {
+export const OptionWindow = ({ modalChildren, title, onClose }: Props) => {
   return (
     <>
-      {isOptionModalOpen ? (
-        <>
-          <ModalWindow />
-          <ModalWrapper>
-            <HeadWrapper>
-              <Title>{title}</Title>
-              <CloseIcon onClick={() => setOpenOptionModal(false)} />
-            </HeadWrapper>
-            <div>{menuOption}</div>
-          </ModalWrapper>
-        </>
-      ) : null}
+      <ModalWindow />
+      <ModalWrapper>
+        <HeadWrapper>
+          <Title>{title}</Title>
+          <CloseIcon onClick={onClose} />
+        </HeadWrapper>
+        <div>{modalChildren}</div>
+      </ModalWrapper>
     </>
   )
 }
