@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { GHUser } from './GHUser'
+import { GHUserType } from './types'
 
 interface Props {
   searchInput: string
 }
 
 export const GHDataFetching = ({ searchInput }: Props) => {
-  const [users, setUsers] = useState<any>([])
+  const [user, setUser] = useState<GHUserType | null>(null)
   const [errors, setErrors] = useState('')
 
   const { REACT_APP_TOKEN } = process.env
@@ -22,17 +23,15 @@ export const GHDataFetching = ({ searchInput }: Props) => {
           })
           .then((res) => {
             setErrors('')
-            setUsers(res.data)
+            setUser(res.data)
           })
           .catch((err) => setErrors(err.message))
-      : setUsers([])
+      : setUser(null)
   }, [REACT_APP_TOKEN, searchInput])
 
-  console.log('users: ', users)
-
   return (
-    <div>
-      <GHUser users={users} searchInput={searchInput} errors={errors} />
-    </div>
+    <>
+      <GHUser user={user} searchInput={searchInput} errors={errors} />
+    </>
   )
 }

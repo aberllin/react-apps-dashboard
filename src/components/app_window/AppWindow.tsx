@@ -22,9 +22,11 @@ export const AppWindow = ({ title, app, options }: Props) => {
         <CloseAppButton />
       </AppCardNav>
       <div>{app ? app : 'Coming soon'}</div>
-      <MenuButton>
-        <Menu options={options} />
-      </MenuButton>
+      {options && (
+        <MenuButton>
+          <Menu options={options} />
+        </MenuButton>
+      )}
     </AppWindowWrapper>
   )
 }

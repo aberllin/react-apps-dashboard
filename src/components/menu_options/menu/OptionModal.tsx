@@ -5,31 +5,21 @@ import { ModalWindow } from '../../common/ModalWindow'
 
 interface Props {
   title: string
-  menuOption: JSX.Element
-  isOptionModalOpen: boolean
-  setOpenOptionModal: React.Dispatch<React.SetStateAction<boolean>>
+  modalChildren: JSX.Element
+  onClose: () => void
 }
 
-export const OptionWindow = ({
-  isOptionModalOpen,
-  menuOption,
-  title,
-  setOpenOptionModal,
-}: Props) => {
+export const OptionWindow = ({ modalChildren, title, onClose }: Props) => {
   return (
     <>
-      {isOptionModalOpen ? (
-        <>
-          <ModalWindow />
-          <ModalWrapper>
-            <HeadWrapper>
-              <Title>{title}</Title>
-              <CloseIcon onClick={() => setOpenOptionModal(false)} />
-            </HeadWrapper>
-            <div>{menuOption}</div>
-          </ModalWrapper>
-        </>
-      ) : null}
+      <ModalWindow />
+      <ModalWrapper>
+        <HeadWrapper>
+          <Title>{title}</Title>
+          <CloseIcon onClick={onClose} />
+        </HeadWrapper>
+        <div>{modalChildren}</div>
+      </ModalWrapper>
     </>
   )
 }
@@ -44,6 +34,8 @@ const ModalWrapper = styled.div`
   top: 50%;
   z-index: 10;
   transform: translate(-50%, -50%);
+
+  overflow: auto;
 
   @media screen and (max-width: 820px) {
     width: 400px;
