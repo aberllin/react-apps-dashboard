@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { OptionWindow } from './OptionModal'
-import { AppType, Option } from '../../../modules/appsData'
+import { Option } from '../../../modules/appsData'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 
 interface Props {
