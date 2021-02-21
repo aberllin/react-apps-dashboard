@@ -43,14 +43,12 @@ export const AddToFavorites = ({ user }: Props) => {
   }, [user])
 
   return (
-    <>
-      <div onClick={addToFavorite}>
-        {!isFavorite ? (
-          <AiOutlineStar style={{ cursor: 'pointer' }} />
-        ) : (
-          <AiFillStar style={{ color: '#FFE227', cursor: 'pointer' }} />
-        )}
-      </div>
-    </>
+    <div onClick={addToFavorite}>
+      {!isFavorite ? (
+        <AiOutlineStar style={{ cursor: 'pointer' }} />
+      ) : (
+        <AiFillStar style={{ color: '#FFE227', cursor: 'pointer' }} />
+      )}
+    </div>
   )
 }
