@@ -19,6 +19,7 @@ export const MenuModal = ({ isOpen, options, setOpenMenuButton }: Props) => {
   const currentOption = options.find(
     (option) => option.optionTitle === currentOptionModal,
   )
+
   useOutsideClick(ref, () => {
     return isOpen ? setOpenMenuButton(false) : null
   })
