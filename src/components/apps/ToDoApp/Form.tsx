@@ -3,9 +3,9 @@ import { FiPlus } from 'react-icons/fi'
 import styled from 'styled-components'
 
 export interface Todo {
-    text: string,
-    id: number
-    complete: boolean
+  text: string
+  id: number
+  complete: boolean
 }
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
   setTodos: (value: Todo[]) => void
 }
 
-export const Form = ({ inputText, setInputText, todos, setTodos } : Props) => {
+export const Form = ({ inputText, setInputText, todos, setTodos }: Props) => {
   const inputTextHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!inputText && e.target.value === ' ') {
       return false
@@ -24,7 +24,11 @@ export const Form = ({ inputText, setInputText, todos, setTodos } : Props) => {
     }
   }
 
-  const submitTodoHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => {
+  const submitTodoHandler = (
+    e:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     e.preventDefault()
     if (inputText === '') {
       return ''
@@ -34,7 +38,7 @@ export const Form = ({ inputText, setInputText, todos, setTodos } : Props) => {
     setInputText('')
   }
 
-  const keyPressHandler = (e : React.KeyboardEvent<HTMLInputElement>) => {
+  const keyPressHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       submitTodoHandler(e)
     }
@@ -67,12 +71,13 @@ const FormWrapper = styled.div`
 const StyledInput = styled.input`
   outline: 0;
   background: #c4c4c4;
-  width: 85%;
+  width: 80%;
   border: 0;
-  height: 48px;
+  height: 52px;
   box-sizing: border-box;
   font-size: 14px;
   padding: 15px;
+  border-radius: 20px 0 0 20px;
 `
 
 const SubmitButton = styled.button`
@@ -80,12 +85,13 @@ const SubmitButton = styled.button`
   color: ${({ theme }) => theme.bodyColor};
   cursor: pointer;
   display: flex;
-  height: 48px;
+  height: 52px;
   justify-content: center;
   align-items: center;
-  width: 15%;
+  width: 20%;
   outline: 0;
   border: 0;
+  border-radius: 0 20px 20px 0;
   box-sizing: border-box;
 
   &:hover {

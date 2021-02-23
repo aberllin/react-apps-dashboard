@@ -56,6 +56,7 @@ const Image = styled.div<{ background: string }>`
   margin-bottom: 5px;
   transition: ease 0.2s;
   cursor: pointer;
+  border-radius: 35px;
 
   &:hover {
     opacity: 30%;
