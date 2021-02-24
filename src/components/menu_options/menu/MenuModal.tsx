@@ -60,18 +60,22 @@ const Background = styled.div`
   border: 1px solid #c4c4c4;
   z-index: 4;
   overflow: auto;
-  list-style-type: none;
   font-size: 20px;
-  width: 110px;
-  height: 140px;
+  width: 200px;
+  height: 250px;
   left: 105px;
-  top: 570px;
+  padding: 15px;
+  top: 450px;
+  border-radius: 20px;
 `
 
 const StyledLi = styled.li`
+  display: flex;
   margin: 5px;
   cursor: pointer;
+  list-style-type: none;
+
   &:hover {
-    background: gray;
+    background: #1ccbb1;
   }
 `

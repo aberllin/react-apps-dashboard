@@ -16,7 +16,7 @@ export const Menu = ({ options }: Props) => {
   }
 
   return (
-    <>
+    <MenuWrapper>
       <div onClick={onClickMenu}>
         <MenuIcon active={openMenuButton} />
       </div>
@@ -25,7 +25,7 @@ export const Menu = ({ options }: Props) => {
         isOpen={openMenuButton}
         setOpenMenuButton={setOpenMenuButton}
       />
-    </>
+    </MenuWrapper>
   )
 }
 
@@ -39,4 +39,7 @@ const MenuIcon = styled(HiOutlineDotsCircleHorizontal)<{ active: boolean }>`
   &:hover {
     color: #1ccbb1;
   }
+`
+const MenuWrapper = styled.div`
+  position: relative;
 `
