@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi'
 import { MenuModal } from './MenuModal'
-import { AppType } from '../../../modules/appsData'
+import { Option } from '../../../modules/appsData'
 
 interface Props {
-  options: AppType['options']
+  options: Option[]
 }
 
 export const Menu = ({ options }: Props) => {
@@ -31,18 +31,11 @@ export const Menu = ({ options }: Props) => {
 
 const MenuIcon = styled(HiOutlineDotsCircleHorizontal)<{ active: boolean }>`
   position: fixed;
-  color: ${({ theme }) => theme.textColor};
   transition: ease 0.2s;
   cursor: pointer;
   bottom: 60px;
   left: 60px;
-  ${(props) => {
-    if (props.active) {
-      return `
-      color: #1ccbb1;
-                    `
-    }
-  }}
+  color: ${(props) => (props.active ? '#1ccbb1' : props.theme.textColor)};
   &:hover {
     color: #1ccbb1;
   }

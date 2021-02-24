@@ -1,19 +1,24 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { OptionWindow } from './OptionModal'
-import { AppType } from '../../../modules/appsData'
+import { Option } from '../../../modules/appsData'
 import { useOutsideClick } from '../../hooks/useOutsideClick'
 
 interface Props {
   isOpen: boolean
-  options: AppType['options']
+  options: Option[]
   setOpenMenuButton: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const MenuModal = ({ isOpen, options, setOpenMenuButton }: Props) => {
   const ref = useRef(null)
 
-  const [openOptionModal, setOpenOptionModal] = useState<boolean>(false)
+  const [currentOptionModal, setCurrentOptionModal] = useState<string | null>(
+    null,
+  )
+  const currentOption = options.find(
+    (option) => option.optionTitle === currentOptionModal,
+  )
 
   useOutsideClick(ref, () => {
     return isOpen ? setOpenMenuButton(false) : null
@@ -27,19 +32,22 @@ export const MenuModal = ({ isOpen, options, setOpenMenuButton }: Props) => {
             {options
               ? options.map((option) => (
                   <div>
-                    <StyledLi onClick={() => setOpenOptionModal(true)}>
+                    <StyledLi
+                      onClick={() => setCurrentOptionModal(option.optionTitle)}
+                    >
                       {option.optionTitle}
                     </StyledLi>
-                    <OptionWindow
-                      key={option.optionTitle}
-                      isOptionModalOpen={openOptionModal}
-                      menuOption={option.option}
-                      title={option.optionTitle}
-                      setOpenOptionModal={setOpenOptionModal}
-                    />
                   </div>
                 ))
               : null}
+
+            {Boolean(currentOptionModal) && (
+              <OptionWindow
+                modalChildren={currentOption!.option}
+                title={currentOption!.optionTitle}
+                onClose={() => setCurrentOptionModal(null)}
+              />
+            )}
           </ul>
         </Background>
       ) : null}

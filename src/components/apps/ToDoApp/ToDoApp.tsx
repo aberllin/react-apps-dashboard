@@ -18,6 +18,8 @@ export const ToDoApp = () => {
     localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
 
+  console.log('todos,', todos)
+
   return (
     <AppWrapper>
       <Form

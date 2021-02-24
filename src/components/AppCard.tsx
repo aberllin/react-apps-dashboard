@@ -35,6 +35,9 @@ export const AppCard = ({ id, image, title, app, options }: AppType) => {
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.textColor};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &:hover {
     color: #1ccbb1;
