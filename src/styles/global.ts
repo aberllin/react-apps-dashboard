@@ -5,6 +5,7 @@ export const GlobalStyles = createGlobalStyle`
     *::after,
     *::before {
         box-sizing: border-box;
+        font-family: 'Nunito Sans', sans-serif;
     }
 
    input, button, ul {

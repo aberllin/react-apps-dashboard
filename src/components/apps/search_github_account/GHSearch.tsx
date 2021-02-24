@@ -69,8 +69,9 @@ const StyledInput = styled.input`
   width: 100%;
   max-width: 1000px;
   border: 0;
-  height: 48px;
+  height: 52px;
   box-sizing: border-box;
   font-size: 14px;
   padding: 15px;
+  border-radius: 20px;
 `
