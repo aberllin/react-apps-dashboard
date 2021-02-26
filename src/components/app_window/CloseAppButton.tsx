@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { IoCloseCircleOutline } from 'react-icons/io5'
+import { GiPlainCircle } from 'react-icons/gi'
 
 export const CloseAppButton = () => {
   return (
@@ -11,10 +11,10 @@ export const CloseAppButton = () => {
   )
 }
 
-const CloseIcon = styled(IoCloseCircleOutline)`
-  color: ${({ theme }) => theme.textColor};
+const CloseIcon = styled(GiPlainCircle)`
+  color: #cb1717;
+  font-size: 20px;
   transition: ease 0.2s;
-
   &:hover {
     color: red;
   }

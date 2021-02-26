@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { IoCloseCircleOutline } from 'react-icons/io5'
-import { ModalWindow } from '../../common/ModalWindow'
+import { ModalWindow } from '../common/ModalWindow'
 
 interface Props {
   title: string

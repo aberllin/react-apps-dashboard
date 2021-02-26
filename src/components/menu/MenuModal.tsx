@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { OptionWindow } from './OptionModal'
-import { Option } from '../../../modules/appsData'
-import { useOutsideClick } from '../../hooks/useOutsideClick'
+import { Option } from '../../modules/appsData'
+import { useOutsideClick } from '../hooks/useOutsideClick'
 
 interface Props {
   isOpen: boolean

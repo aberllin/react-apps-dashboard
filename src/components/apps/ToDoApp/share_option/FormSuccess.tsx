@@ -1,5 +1,5 @@
 import React from 'react'
-import catSentMessage from './../../../images/catSentMessage.gif'
+import catSentMessage from '../../../../images/catSentMessage.gif'
 import styled from 'styled-components'
 
 export const FormSuccess = () => {

@@ -19,40 +19,30 @@ function Toggle({ onClick, theme }: Props) {
 export default Toggle
 
 const ButtonWrapper = styled.div`
-  padding-right: 60px;
-
-  @media screen and (max-width: 1199px) {
-    padding-right: 40px;
-  }
-
-  @media screen and (max-width: 992px) {
-    padding-right: 30px;
-  }
-
-  @media screen and (max-width: 600px) {
-    padding-right: 0;
-  }
+  position: absolute;
+  bottom: 35px;
+  right: 165px;
 `
 
-const ToggleButton = styled.div<{toggled: string}>`
+const ToggleButton = styled.div<{ toggled: string }>`
   height: 40px;
   width: 80px;
   border-radius: 50px;
   position: relative;
   cursor: pointer;
-  background: #1ccbb1;
+  background: #fcf6ec;
   ${(props) => {
     if (props.toggled === 'dark') {
       return `
-            background: white;
+            background: #2E3A59;
           `
     }
   }}
 `
 
-const Circle = styled.div<{toggled: string}>`
+const Circle = styled.div<{ toggled: string }>`
   border-radius: 50%;
-  background: #ececec;
+  background: #2e3a59;
   position: absolute;
   width: 32px;
   height: 32px;
@@ -62,7 +52,7 @@ const Circle = styled.div<{toggled: string}>`
   ${(props) => {
     if (props.toggled === 'dark') {
       return `
-            background: #181a18;
+            background: #FCF6EC;
             transform: translate(37px, 0);          
           `
     }

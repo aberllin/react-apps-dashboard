@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { HiOutlineDotsCircleHorizontal } from 'react-icons/hi'
 import { MenuModal } from './MenuModal'
-import { Option } from '../../../modules/appsData'
+import { Option } from '../../modules/appsData'
 
 interface Props {
   options: Option[]
