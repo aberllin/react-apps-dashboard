@@ -73,6 +73,18 @@ const Image = styled.div`
     height: 80px;
     transform: translateY(-10px);
   }
+
+  @media screen and (max-width: 834px) {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+
+    &:hover {
+      width: 60px;
+      height: 60px;
+      transform: translateY(-6px);
+    }
+  }
 `
 
 const CardContainer = styled.div`

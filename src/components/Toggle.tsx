@@ -22,6 +22,15 @@ const ButtonWrapper = styled.div`
   position: absolute;
   bottom: 35px;
   right: 165px;
+
+  @media screen and (max-width: 1024px) {
+    right: 95px;
+  }
+
+  @media screen and (max-width: 834px) {
+    right: 55px;
+    bottom: 25px;
+  }
 `
 
 const ToggleButton = styled.div<{ toggled: string }>`

@@ -6,7 +6,6 @@ import { ShareOption } from '../components/apps/ToDoApp/share_option/ShareOption
 import { GHSearch } from '../components/apps/search_github_account/GHSearch'
 import { ClearFavorites } from '../components/apps/search_github_account/ghsearch_options/ClearFavorites'
 import { ShowFavorites } from '../components/apps/search_github_account/ghsearch_options/ShowFavorites'
-import { Desktop } from '../components/apps/desktop/Desktop'
 
 export interface AppType {
   id: number
@@ -22,7 +21,7 @@ export interface Option {
 }
 
 export const appsData: AppType[] = [
-  { id: 1, title: 'MacOS-like Desktop', app: <Desktop /> },
+  { id: 1, title: 'MacOS-like Desktop' },
   { id: 2, title: 'Calculator' },
   { id: 3, title: 'Calculator' },
   {

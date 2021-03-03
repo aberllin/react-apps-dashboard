@@ -14,8 +14,5 @@ export const CloseAppButton = () => {
 const CloseIcon = styled(GiPlainCircle)`
   color: #cb1717;
   font-size: 20px;
-  transition: ease 0.2s;
-  &:hover {
-    color: red;
-  }
+  padding-right: 6px;
 `

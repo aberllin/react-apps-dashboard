@@ -44,8 +44,8 @@ const FormWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 900px;
+  margin: 50px auto;
 
   @media screen and (max-width: 992px) {
     max-width: 800px;
@@ -67,7 +67,7 @@ const StyledInput = styled.input`
   outline: 0;
   background: #c4c4c4;
   width: 100%;
-  max-width: 1000px;
+  max-width: 900px;
   border: 0;
   height: 52px;
   box-sizing: border-box;

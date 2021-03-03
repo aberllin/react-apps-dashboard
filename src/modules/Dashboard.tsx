@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { AppCard } from '../components/AppCard'
 import { appsData } from './appsData'
@@ -6,7 +6,7 @@ import Toggle from '../components/Toggle'
 import background_img from '../images/background_img.jpeg'
 import { CurrentTime } from './date/currentTime'
 import { CurrentDay } from './date/currentDay'
-import { HiDotsHorizontal } from 'react-icons/hi'
+import { DashboardMenu } from './menu/DashboardMenu'
 
 interface DashboardProps {
   theme: string
@@ -14,8 +14,10 @@ interface DashboardProps {
 }
 
 export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
+  const [background, setBackground] = useState<string>(background_img)
+
   return (
-    <Container background={background_img}>
+    <Container background={background}>
       <Header>
         <Title>Apps Dashboard</Title>
         <Date>
@@ -34,9 +36,7 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
           />
         ))}
       </AppCardsWrapper>
-      <OptionIcon>
-        <HiDotsHorizontal />
-      </OptionIcon>
+      <DashboardMenu setBackground={setBackground} />
       <Toggle onClick={changeTheme} theme={theme} />
     </Container>
   )
@@ -49,19 +49,11 @@ const Container = styled.div<{ background: string }>`
   background: url(${(props) => props.background}) no-repeat center fixed;
 `
 
-const OptionIcon = styled.div`
-  color: #fcf6ec;
-  position: absolute;
-  bottom: 18px;
-  left: 170px;
-  font-size: 45px;
-`
-
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.3);
   padding: 0 15px;
 `
 
@@ -91,4 +83,9 @@ const AppCardsWrapper = styled.div`
   left: 0;
   right: 0;
   text-align: center;
+
+  @media screen and (max-width: 834px) {
+    max-width: 450px;
+    max-height: 70px;
+  }
 `
