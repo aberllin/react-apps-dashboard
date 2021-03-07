@@ -3,7 +3,6 @@ import { Dashboard } from './modules/Dashboard'
 import { ThemeProvider } from 'styled-components'
 import { themes } from './styles/theme'
 import { GlobalStyles } from './styles/global'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { NotificationProvider } from './providers/NotificationProvider'
 
 enum Theme {
@@ -32,16 +31,14 @@ function App() {
   }, [theme])
 
   return (
-    <Router>
-      <ThemeProvider theme={themes[theme]}>
-        <>
-          <GlobalStyles />
-          <NotificationProvider>
-            <Dashboard changeTheme={changeTheme} theme={theme} />
-          </NotificationProvider>
-        </>
-      </ThemeProvider>
-    </Router>
+    <ThemeProvider theme={themes[theme]}>
+      <>
+        <GlobalStyles />
+        <NotificationProvider>
+          <Dashboard changeTheme={changeTheme} theme={theme} />
+        </NotificationProvider>
+      </>
+    </ThemeProvider>
   )
 }
 

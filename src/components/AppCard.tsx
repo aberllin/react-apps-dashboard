@@ -1,32 +1,71 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Route, Link } from 'react-router-dom'
-import { AppWindow } from './app_window/AppWindow'
+import { AppWindow } from './AppWindow'
 import { AppType } from '../modules/appsData'
 import Tippy from '@tippy.js/react'
 import 'tippy.js/dist/tippy.css'
 
-export const AppCard = ({ id, image, title, app, options }: AppType) => {
-  const urlTitle = title
-    .replace(/ /gs, '_')
-    .replace(/[,.:]+/g, '')
-    .toLowerCase()
+export interface AppWindowDragTypes {
+  diffX?: number
+  diffY?: number
+  dragging?: boolean
+  styles: {
+    left: number
+    top: number
+  }
+}
+
+export interface AppWindowState {
+  isOpen: boolean
+  isCollapsed: boolean
+  zIndex: number
+  ids: number[]
+}
+
+export const AppCard = ({ id, image, title, app }: AppType) => {
+  const [isAppWindowOpen, setIsAppWindowOpen] = useState<AppWindowState>({
+    isOpen: false,
+    isCollapsed: false,
+    zIndex: 100,
+    ids: [],
+  })
+
+  const [appWindowDrag, setAppWindowDrag] = useState<AppWindowDragTypes>({
+    diffX: 0,
+    diffY: 0,
+    dragging: false,
+    styles: {
+      left: 200,
+      top: 200,
+    },
+  })
 
   return (
     <CardContainer>
-      <StyledLink to={urlTitle}>
-        <Tooltip arrow={false} content={title}>
-          <Image>
-            <Icon src={image} />
-          </Image>
-        </Tooltip>
-      </StyledLink>
-      <Route
-        path={`/${urlTitle}`}
-        render={(props) => (
-          <AppWindow {...props} app={app} key={id} options={options} />
-        )}
-      />
+      <Tooltip arrow={false} content={title}>
+        <Image
+          onClick={() =>
+            setIsAppWindowOpen({
+              ...isAppWindowOpen,
+              isOpen: true,
+              zIndex: 1000,
+              isCollapsed: false,
+              ids: [...isAppWindowOpen.ids, id],
+            })
+          }
+        >
+          <Icon src={image} />
+        </Image>
+      </Tooltip>
+      {isAppWindowOpen.isOpen ? (
+        <AppWindow
+          app={app}
+          isAppWindowOpen={isAppWindowOpen}
+          setIsAppWindowOpen={setIsAppWindowOpen}
+          appWindowDrag={appWindowDrag}
+          setAppWindowDrag={setAppWindowDrag}
+        />
+      ) : null}
     </CardContainer>
   )
 }
@@ -43,18 +82,6 @@ const Icon = styled.img`
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-`
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: ${({ theme }) => theme.textColor};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  &:hover {
-    color: #1ccbb1;
-  }
 `
 
 const Image = styled.div`
