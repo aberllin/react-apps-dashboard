@@ -62,13 +62,15 @@ const Button = styled.button`
 
 const StyledInput = styled.input`
   outline: 0;
-  border: 2px solid #c4c4c4;
+  border: 0;
   width: 70%;
+  border-radius: 20px;
   height: 48px;
   box-sizing: border-box;
   font-size: 14px;
   padding: 15px;
   margin-top: 15px;
+  background: #c4c4c4;
 `
 
 const ErrorMessage = styled.p`

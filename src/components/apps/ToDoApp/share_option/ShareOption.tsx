@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { ShareForm } from './ShareForm'
 import { FormSuccess } from './FormSuccess'
+import styled from 'styled-components'
 
 export const ShareOption = () => {
   const [inputValue, setInputValue] = useState<string>('')
@@ -25,7 +26,11 @@ export const ShareOption = () => {
   }
 
   return (
-    <>
+    <Wrapper>
+      <NavBar>
+        <div>Share your Todo List</div>
+        <div>x</div>
+      </NavBar>
       {!isSuccess ? (
         <ShareForm
           errors={errors}
@@ -36,6 +41,23 @@ export const ShareOption = () => {
       ) : (
         <FormSuccess />
       )}
-    </>
+    </Wrapper>
   )
 }
+
+const NavBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+const Wrapper = styled.div`
+  position: fixed;
+  background: white;
+  border: 5px solid #2e3a59;
+  width: 500px;
+  border-radius: 20px;
+  height: 300px;
+  left: 30%;
+  top: 30%;
+  z-index: 10;
+`

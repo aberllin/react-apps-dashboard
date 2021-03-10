@@ -9,18 +9,24 @@ import { OptionsBar } from '../components/OptionsBar'
 
 interface Props {
   app: AppType['app']
+  options: AppType['options']
   isAppWindowOpen: AppWindowState
   setIsAppWindowOpen: React.Dispatch<React.SetStateAction<AppWindowState>>
   appWindowDrag: AppWindowDragTypes
   setAppWindowDrag: React.Dispatch<React.SetStateAction<AppWindowDragTypes>>
+  zIndex: number
+  setZIndex: (v: number) => void
 }
 
 export const AppWindow = ({
   app,
+  options,
   isAppWindowOpen,
   setIsAppWindowOpen,
   appWindowDrag,
   setAppWindowDrag,
+  zIndex,
+  setZIndex,
 }: Props) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -66,24 +72,23 @@ export const AppWindow = ({
   }
 
   const handleHideScreen = () => {
-    setIsAppWindowOpen({ ...isAppWindowOpen, isCollapsed: true, zIndex: -1000 })
+    setIsAppWindowOpen({ ...isAppWindowOpen, isCollapsed: true })
+    setZIndex(-1000)
   }
 
   const [isOptionBarOpen, setIsOptionBarOpen] = useState<boolean>(false)
+  const [optionModal, setOptionModal] = useState<null | string>(null)
+
+  const currentOpenedOption =
+    options && options.find((opt) => opt.optionTitle === optionModal)
 
   return (
     <AppWindowWrapper
       isFullScreen={fullScreen}
       isScreenCollapsed={isAppWindowOpen.isCollapsed}
-      zIndex={isAppWindowOpen.zIndex}
+      zIndex={zIndex}
       left={appWindowDrag.styles?.left}
       top={appWindowDrag.styles?.top}
-      onClick={() =>
-        setIsAppWindowOpen({
-          ...isAppWindowOpen,
-          zIndex: isAppWindowOpen.zIndex + 1,
-        })
-      }
     >
       <AppCardNav
         onMouseDown={dragStart}
@@ -127,12 +132,19 @@ export const AppWindow = ({
         >
           <MenuButton />
         </div>
+        {isOptionBarOpen && (
+          <OptionsBar
+            setIsOptionBarOpen={setIsOptionBarOpen}
+            setOptionModal={setOptionModal}
+            options={options}
+          />
+        )}
 
-        {isOptionBarOpen ? (
-          <OptionsBar setIsOptionBarOpen={setIsOptionBarOpen} />
-        ) : null}
+        {currentOpenedOption && currentOpenedOption.option}
       </AppCardNav>
-      <App>{app ? app : 'Coming soon'}</App>
+      <App onClick={() => setZIndex(zIndex + 7)}>
+        {app ? app : 'Coming soon'}
+      </App>
     </AppWindowWrapper>
   )
 }

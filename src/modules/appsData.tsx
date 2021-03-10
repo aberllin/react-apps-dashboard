@@ -17,7 +17,13 @@ export interface AppType {
 
 export interface Option {
   optionTitle: string
-  option: JSX.Element
+  option: any
+  type: OptionType
+}
+
+export enum OptionType {
+  function = 'function',
+  component = 'component',
 }
 
 export const appsData: AppType[] = [
@@ -30,8 +36,16 @@ export const appsData: AppType[] = [
     image: ghIcon,
     app: <GHSearch />,
     options: [
-      { optionTitle: 'Show Favorites', option: <ShowFavorites /> },
-      { optionTitle: 'Clear Favorites', option: <ClearFavorites /> },
+      {
+        optionTitle: 'Show Favorites',
+        option: <ShowFavorites />,
+        type: OptionType.component,
+      },
+      {
+        optionTitle: 'Clear Favorites',
+        option: <ClearFavorites />,
+        type: OptionType.component,
+      },
     ],
   },
   {
@@ -39,7 +53,13 @@ export const appsData: AppType[] = [
     title: 'To Do List',
     image: todoIcon,
     app: <ToDoApp />,
-    options: [{ optionTitle: 'Share', option: <ShareOption /> }],
+    options: [
+      {
+        optionTitle: 'Share',
+        option: <ShareOption />,
+        type: OptionType.component,
+      },
+    ],
   },
   { id: 6, title: 'Timer' },
   { id: 7, title: 'Timer' },

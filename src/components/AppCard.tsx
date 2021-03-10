@@ -18,16 +18,12 @@ export interface AppWindowDragTypes {
 export interface AppWindowState {
   isOpen: boolean
   isCollapsed: boolean
-  zIndex: number
-  ids: number[]
 }
 
-export const AppCard = ({ id, image, title, app }: AppType) => {
+export const AppCard = ({ image, title, app, options }: AppType) => {
   const [isAppWindowOpen, setIsAppWindowOpen] = useState<AppWindowState>({
     isOpen: false,
     isCollapsed: false,
-    zIndex: 100,
-    ids: [],
   })
 
   const [appWindowDrag, setAppWindowDrag] = useState<AppWindowDragTypes>({
@@ -40,19 +36,20 @@ export const AppCard = ({ id, image, title, app }: AppType) => {
     },
   })
 
+  const [zIndex, setZIndex] = useState<number>(100)
+
   return (
     <CardContainer>
       <Tooltip arrow={false} content={title}>
         <Image
-          onClick={() =>
+          onClick={() => {
             setIsAppWindowOpen({
               ...isAppWindowOpen,
               isOpen: true,
-              zIndex: 1000,
               isCollapsed: false,
-              ids: [...isAppWindowOpen.ids, id],
             })
-          }
+            setZIndex(1000)
+          }}
         >
           <Icon src={image} />
         </Image>
@@ -60,10 +57,13 @@ export const AppCard = ({ id, image, title, app }: AppType) => {
       {isAppWindowOpen.isOpen ? (
         <AppWindow
           app={app}
+          options={options}
+          zIndex={zIndex}
           isAppWindowOpen={isAppWindowOpen}
           setIsAppWindowOpen={setIsAppWindowOpen}
           appWindowDrag={appWindowDrag}
           setAppWindowDrag={setAppWindowDrag}
+          setZIndex={setZIndex}
         />
       ) : null}
     </CardContainer>

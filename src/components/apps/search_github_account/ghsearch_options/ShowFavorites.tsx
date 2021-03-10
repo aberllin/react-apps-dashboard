@@ -9,7 +9,7 @@ export const ShowFavorites = () => {
     : []
 
   return (
-    <>
+    <Wrapper>
       {parsedFavorites.length > 0 ? (
         parsedFavorites.map((favUser) => (
           <FavUserWrapper>
@@ -22,13 +22,26 @@ export const ShowFavorites = () => {
       ) : (
         <div style={{ color: 'red' }}>You don't have any</div>
       )}
-    </>
+    </Wrapper>
   )
 }
 
+const Wrapper = styled.div`
+  position: fixed;
+  background: white;
+  border: 5px solid #2e3a59;
+  width: 500px;
+  border-radius: 20px;
+  height: 700px;
+  left: 30%;
+  padding: 20px;
+  top: 5%;
+  z-index: 10;
+`
+
 const FavUserWrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   padding: 10px;
 `

@@ -1,20 +1,41 @@
 import React from 'react'
 import styled from 'styled-components'
 import { IoMdClose } from 'react-icons/io'
+import { OptionType, Option } from '../modules/appsData'
 
 interface Props {
   setIsOptionBarOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setOptionModal: (title: string) => void
+  options?: Option[]
 }
 
-export const OptionsBar = ({ setIsOptionBarOpen }: Props) => {
+export const OptionsBar = ({
+  setIsOptionBarOpen,
+  setOptionModal,
+  options,
+}: Props) => {
+  const handleOptionClick = (option: Option) => {
+    if (option.type === OptionType.function) {
+      return option.option()
+    }
+    setIsOptionBarOpen(false)
+    return setOptionModal(option.optionTitle)
+  }
+
   return (
     <OptionsBarBackground>
       <CloseIcon onClick={() => setIsOptionBarOpen(false)}>
         <IoMdClose />
       </CloseIcon>
       <OptionsWrapper>
-        <Options>Share</Options>
-        <Options>Delete App</Options>
+        {options?.map((opt) => (
+          <OptionItem
+            key={opt.optionTitle}
+            onClick={() => handleOptionClick(opt)}
+          >
+            {opt.optionTitle}
+          </OptionItem>
+        ))}
       </OptionsWrapper>
     </OptionsBarBackground>
   )
@@ -50,7 +71,8 @@ const OptionsWrapper = styled.div`
   margin-top: 60px;
 `
 
-const Options = styled.div`
+const OptionItem = styled.div`
   font-size: 25px;
   color: ${({ theme }) => theme.bodyColor};
+  cursor: pointer;
 `

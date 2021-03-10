@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { AppCard } from '../components/AppCard'
 import { appsData } from './appsData'
@@ -15,6 +15,16 @@ interface DashboardProps {
 
 export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
   const [background, setBackground] = useState<string>(background_img)
+
+  useEffect(() => {
+    const inStorage = localStorage.getItem('background')
+    const initialValue = inStorage ? inStorage : background_img
+    setBackground(initialValue)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('background', background)
+  }, [background])
 
   return (
     <Container background={background}>

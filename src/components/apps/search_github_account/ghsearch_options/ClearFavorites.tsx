@@ -5,7 +5,7 @@ export const ClearFavorites = () => {
     localStorage.removeItem('favorites')
   }
   return (
-    <>
+    <Wrapper>
       <ClearMessage>Do you want to clear your favorites?</ClearMessage>
       <ClearButton
         onClick={() => {
@@ -14,9 +14,21 @@ export const ClearFavorites = () => {
       >
         Clear
       </ClearButton>
-    </>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  position: fixed;
+  background: white;
+  border: 5px solid #2e3a59;
+  width: 500px;
+  border-radius: 20px;
+  height: 300px;
+  left: 30%;
+  top: 30%;
+  z-index: 10;
+`
 
 const ClearMessage = styled.div`
   font-size: 25px;
