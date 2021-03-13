@@ -4,6 +4,7 @@ import { GiPlainCircle } from 'react-icons/gi'
 import { HiMenuAlt3 } from 'react-icons/hi'
 import { OptionsBar } from '../components/OptionsBar'
 import { appDataMap } from '../modules/appsData'
+import { useDrag } from './hooks/useDrag'
 
 type Props = {
   id: string
@@ -17,40 +18,8 @@ export const AppWindow = ({ id, isCollapsed, onCollapse, onClose }: Props) => {
     document.body.style.overflow = 'hidden'
   }, [])
 
-  const [coordinate, setCoordinate] = useState({ top: 50, left: 100 })
-
-  const ref = createRef<HTMLDivElement>()
-
-  useEffect(() => {
-    const nav = ref.current
-    nav && nav.addEventListener('mousedown', mousedown)
-  }, [ref.current])
-
-  const mousedown = (e: any) => {
-    console.log('mousedown')
-    let prevX = e.clientX
-    let prevY = e.clientY
-
-    const mousemove = () => {
-      let newX = prevX - e.clientX
-      let newY = prevY - e.clientY
-
-      const rect = ref.current?.getBoundingClientRect() || { top: 0, left: 0 }
-
-      setCoordinate({ top: rect.top - newY, left: rect.left - newX })
-
-      prevX = e.clientX
-      prevY = e.clientY
-    }
-
-    const mouseup = () => {
-      window.removeEventListener('mousemove', mousemove)
-      window.removeEventListener('mouseup', mouseup)
-    }
-
-    window.addEventListener('mousemove', mousemove)
-    window.addEventListener('mouseup', mouseup)
-  }
+  const navRef = createRef<HTMLDivElement>()
+  const onDrag = useDrag(navRef)
 
   const app = appDataMap[id]
 
@@ -77,10 +46,9 @@ export const AppWindow = ({ id, isCollapsed, onCollapse, onClose }: Props) => {
     <AppWindowWrapper
       isFullScreen={fullScreen}
       isScreenCollapsed={isCollapsed}
-      left={coordinate.left}
-      top={coordinate.top}
+      ref={navRef}
     >
-      <AppCardNav ref={ref}>
+      <AppCardNav onMouseDown={onDrag}>
         <NavButtons>
           <div
             onClick={(e) => {
@@ -188,8 +156,6 @@ const App = styled.div`
 
 const AppWindowWrapper = styled.div<{
   isFullScreen: boolean
-  left: number
-  top: number
   isScreenCollapsed: boolean
 }>`
   position: fixed;
@@ -222,8 +188,8 @@ const AppWindowWrapper = styled.div<{
       return `
      max-width: 600px;
      max-height: 400px;
-     left: ${props.left}px;
-     top: ${props.top}px;
+     left: 200px;
+     top: 200px;
      border-radius: 20px;
      `
     }

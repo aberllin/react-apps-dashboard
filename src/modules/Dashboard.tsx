@@ -52,15 +52,6 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
     setOpenedWindows(openedWindows.filter((window) => window.id !== id))
   }
 
-  const handleFirstWindow = (id: string) => {
-    const currentWindow = openedWindows.find((window) => window.id === id)
-    const newWindows = openedWindows.filter((window) => window.id !== id)
-
-    setOpenedWindows(
-      currentWindow ? [...newWindows, currentWindow] : newWindows,
-    )
-  }
-
   const openWindow = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     id: string,
@@ -70,8 +61,6 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
         window.id === id ? { ...window, isCollapsed: false } : { ...window },
       )
 
-      handleFirstWindow(id)
-
       setOpenedWindows(newOpenedWindows)
     } else {
       setOpenedWindows((prevState) => [
@@ -80,8 +69,6 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
       ])
     }
   }
-
-  console.log('openWin', openedWindows)
 
   return (
     <Container background={background}>
