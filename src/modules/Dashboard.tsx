@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { AppCard } from '../components/AppCard'
-import { appsData } from './appsData'
+import { appDataIds, appDataMap } from './appsData'
 import Toggle from '../components/Toggle'
 import background_img from '../images/background_img.jpeg'
 import { CurrentTime } from './date/currentTime'
 import { CurrentDay } from './date/currentDay'
 import { DashboardMenu } from './menu/DashboardMenu'
+import { AppWindow } from '../components/AppWindow'
 
-interface DashboardProps {
+type DashboardProps = {
   theme: string
   changeTheme: () => void
+}
+
+export type AppWindowDragTypes = {
+  diffX?: number
+  diffY?: number
+  dragging?: boolean
+  styles: {
+    left: number
+    top: number
+  }
 }
 
 export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
@@ -26,6 +37,52 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
     localStorage.setItem('background', background)
   }, [background])
 
+  const [openedWindows, setOpenedWindows] = useState<
+    { id: string; isCollapsed: boolean }[]
+  >([])
+
+  const collapseWindow = (id: string) => {
+    const newOpenedWindows = openedWindows.map((window) =>
+      window.id === id ? { ...window, isCollapsed: true } : window,
+    )
+    setOpenedWindows(newOpenedWindows)
+  }
+
+  const onClose = (id: string) => {
+    setOpenedWindows(openedWindows.filter((window) => window.id !== id))
+  }
+
+  const handleFirstWindow = (id: string) => {
+    const currentWindow = openedWindows.find((window) => window.id === id)
+    const newWindows = openedWindows.filter((window) => window.id !== id)
+
+    setOpenedWindows(
+      currentWindow ? [...newWindows, currentWindow] : newWindows,
+    )
+  }
+
+  const openWindow = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    id: string,
+  ) => {
+    if (openedWindows.find((window) => window.id === id)) {
+      const newOpenedWindows = openedWindows.map((window) =>
+        window.id === id ? { ...window, isCollapsed: false } : { ...window },
+      )
+
+      handleFirstWindow(id)
+
+      setOpenedWindows(newOpenedWindows)
+    } else {
+      setOpenedWindows((prevState) => [
+        ...prevState.map((window) => ({ ...window })),
+        { id, isCollapsed: false },
+      ])
+    }
+  }
+
+  console.log('openWin', openedWindows)
+
   return (
     <Container background={background}>
       <Header>
@@ -36,18 +93,28 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
         </Date>
       </Header>
       <AppCardsWrapper>
-        {appsData.map(({ id, title, image, app, options }) => (
-          <AppCard
-            options={options}
-            id={id}
-            title={title}
-            image={image}
-            app={app}
-          />
-        ))}
+        {appDataIds.map((id) => {
+          const app = appDataMap[id]
+          return (
+            <div onClick={(e) => openWindow(e, id)}>
+              <AppCard title={app.title} image={app.image} />
+            </div>
+          )
+        })}
       </AppCardsWrapper>
       <DashboardMenu setBackground={setBackground} />
       <Toggle onClick={changeTheme} theme={theme} />
+      {openedWindows &&
+        openedWindows.map(({ id, isCollapsed }) => {
+          return (
+            <AppWindow
+              id={id}
+              isCollapsed={isCollapsed}
+              onCollapse={collapseWindow}
+              onClose={onClose}
+            />
+          )
+        })}
     </Container>
   )
 }

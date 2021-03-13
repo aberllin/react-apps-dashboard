@@ -3,7 +3,7 @@ import axios from 'axios'
 import { GHUser } from './GHUser'
 import { GHUserType } from './types'
 
-interface Props {
+type Props = {
   searchInput: string
 }
 

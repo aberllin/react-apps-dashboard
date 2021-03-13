@@ -1,71 +1,23 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { AppWindow } from './AppWindow'
 import { AppType } from '../modules/appsData'
 import Tippy from '@tippy.js/react'
 import 'tippy.js/dist/tippy.css'
+import { FiDivideCircle } from 'react-icons/fi'
 
-export interface AppWindowDragTypes {
-  diffX?: number
-  diffY?: number
-  dragging?: boolean
-  styles: {
-    left: number
-    top: number
-  }
+type Props = {
+  image: AppType['image']
+  title: AppType['title']
 }
 
-export interface AppWindowState {
-  isOpen: boolean
-  isCollapsed: boolean
-}
-
-export const AppCard = ({ image, title, app, options }: AppType) => {
-  const [isAppWindowOpen, setIsAppWindowOpen] = useState<AppWindowState>({
-    isOpen: false,
-    isCollapsed: false,
-  })
-
-  const [appWindowDrag, setAppWindowDrag] = useState<AppWindowDragTypes>({
-    diffX: 0,
-    diffY: 0,
-    dragging: false,
-    styles: {
-      left: 200,
-      top: 200,
-    },
-  })
-
-  const [zIndex, setZIndex] = useState<number>(100)
-
+export const AppCard = ({ image, title }: Props) => {
   return (
     <CardContainer>
       <Tooltip arrow={false} content={title}>
-        <Image
-          onClick={() => {
-            setIsAppWindowOpen({
-              ...isAppWindowOpen,
-              isOpen: true,
-              isCollapsed: false,
-            })
-            setZIndex(1000)
-          }}
-        >
+        <Image>
           <Icon src={image} />
         </Image>
       </Tooltip>
-      {isAppWindowOpen.isOpen ? (
-        <AppWindow
-          app={app}
-          options={options}
-          zIndex={zIndex}
-          isAppWindowOpen={isAppWindowOpen}
-          setIsAppWindowOpen={setIsAppWindowOpen}
-          appWindowDrag={appWindowDrag}
-          setAppWindowDrag={setAppWindowDrag}
-          setZIndex={setZIndex}
-        />
-      ) : null}
     </CardContainer>
   )
 }

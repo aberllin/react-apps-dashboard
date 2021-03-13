@@ -2,13 +2,13 @@ import React from 'react'
 import { FiPlus } from 'react-icons/fi'
 import styled from 'styled-components'
 
-export interface Todo {
+export type Todo = {
   text: string
   id: number
   complete: boolean
 }
 
-interface Props {
+type Props = {
   inputText: string
   setInputText: (value: string) => void
   todos: Todo[]

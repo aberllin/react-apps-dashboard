@@ -7,7 +7,7 @@ import { useOutsideClick } from '../../components/hooks/useOutsideClick'
 import { BsFillImageFill } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
 
-interface Props {
+type Props = {
   setBackground: (value: string) => void
 }
 

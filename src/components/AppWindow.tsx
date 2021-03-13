@@ -1,108 +1,91 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createRef } from 'react'
 import styled from 'styled-components'
-import { AppType } from '../modules/appsData'
 import { GiPlainCircle } from 'react-icons/gi'
-import { AppWindowDragTypes } from '../components/AppCard'
-import { AppWindowState } from '../components/AppCard'
 import { HiMenuAlt3 } from 'react-icons/hi'
 import { OptionsBar } from '../components/OptionsBar'
+import { appDataMap } from '../modules/appsData'
 
-interface Props {
-  app: AppType['app']
-  options: AppType['options']
-  isAppWindowOpen: AppWindowState
-  setIsAppWindowOpen: React.Dispatch<React.SetStateAction<AppWindowState>>
-  appWindowDrag: AppWindowDragTypes
-  setAppWindowDrag: React.Dispatch<React.SetStateAction<AppWindowDragTypes>>
-  zIndex: number
-  setZIndex: (v: number) => void
+type Props = {
+  id: string
+  isCollapsed: boolean
+  onCollapse: (id: string) => void
+  onClose: (id: string) => void
 }
 
-export const AppWindow = ({
-  app,
-  options,
-  isAppWindowOpen,
-  setIsAppWindowOpen,
-  appWindowDrag,
-  setAppWindowDrag,
-  zIndex,
-  setZIndex,
-}: Props) => {
+export const AppWindow = ({ id, isCollapsed, onCollapse, onClose }: Props) => {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
   }, [])
+
+  const [coordinate, setCoordinate] = useState({ top: 50, left: 100 })
+
+  const ref = createRef<HTMLDivElement>()
+
+  useEffect(() => {
+    const nav = ref.current
+    nav && nav.addEventListener('mousedown', mousedown)
+  }, [ref.current])
+
+  const mousedown = (e: any) => {
+    console.log('mousedown')
+    let prevX = e.clientX
+    let prevY = e.clientY
+
+    const mousemove = () => {
+      let newX = prevX - e.clientX
+      let newY = prevY - e.clientY
+
+      const rect = ref.current?.getBoundingClientRect() || { top: 0, left: 0 }
+
+      setCoordinate({ top: rect.top - newY, left: rect.left - newX })
+
+      prevX = e.clientX
+      prevY = e.clientY
+    }
+
+    const mouseup = () => {
+      window.removeEventListener('mousemove', mousemove)
+      window.removeEventListener('mouseup', mouseup)
+    }
+
+    window.addEventListener('mousemove', mousemove)
+    window.addEventListener('mouseup', mouseup)
+  }
+
+  const app = appDataMap[id]
 
   const [fullScreen, setFullScreen] = useState<boolean>(false)
   const handleFullScreen = () => {
     setFullScreen((prev) => !prev)
   }
 
-  const dragStart = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setAppWindowDrag({
-      ...appWindowDrag,
-      diffX: e.screenX - e.currentTarget.getBoundingClientRect().left,
-      diffY: e.screenY - e.currentTarget.getBoundingClientRect().top,
-      dragging: true,
-    })
-  }
-
-  const dragging = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (appWindowDrag.dragging) {
-      const diffX = appWindowDrag.diffX || 0
-      const diffY = appWindowDrag.diffY || 0
-
-      const left = e.screenX - diffX
-      const top = e.screenY - diffY
-
-      setAppWindowDrag({
-        ...appWindowDrag,
-        styles: {
-          top: top,
-          left: left,
-        },
-      })
-    }
-  }
-
-  const dragEnd = () => {
-    setAppWindowDrag({
-      ...appWindowDrag,
-      dragging: false,
-    })
-  }
-
   const handleHideScreen = () => {
-    setIsAppWindowOpen({ ...isAppWindowOpen, isCollapsed: true })
-    setZIndex(-1000)
+    onCollapse(id)
+  }
+
+  const onCloseWindow = () => {
+    onClose(id)
   }
 
   const [isOptionBarOpen, setIsOptionBarOpen] = useState<boolean>(false)
   const [optionModal, setOptionModal] = useState<null | string>(null)
 
   const currentOpenedOption =
-    options && options.find((opt) => opt.optionTitle === optionModal)
+    app.options && app.options.find((opt) => opt.optionTitle === optionModal)
 
   return (
     <AppWindowWrapper
       isFullScreen={fullScreen}
-      isScreenCollapsed={isAppWindowOpen.isCollapsed}
-      zIndex={zIndex}
-      left={appWindowDrag.styles?.left}
-      top={appWindowDrag.styles?.top}
+      isScreenCollapsed={isCollapsed}
+      left={coordinate.left}
+      top={coordinate.top}
     >
-      <AppCardNav
-        onMouseDown={dragStart}
-        onMouseMove={dragging}
-        onMouseUp={dragEnd}
-      >
+      <AppCardNav ref={ref}>
         <NavButtons>
           <div
             onClick={(e) => {
               e.stopPropagation()
-              setIsAppWindowOpen({
-                ...isAppWindowOpen,
-                isOpen: false,
-              })
+              onCloseWindow()
             }}
           >
             <CloseButton />
@@ -136,18 +119,28 @@ export const AppWindow = ({
           <OptionsBar
             setIsOptionBarOpen={setIsOptionBarOpen}
             setOptionModal={setOptionModal}
-            options={options}
+            options={app.options}
           />
         )}
 
         {currentOpenedOption && currentOpenedOption.option}
       </AppCardNav>
-      <App onClick={() => setZIndex(zIndex + 7)}>
-        {app ? app : 'Coming soon'}
-      </App>
+      <App>{app.app ? app.app : 'Coming soon'}</App>
+      <Resizer />
     </AppWindowWrapper>
   )
 }
+
+const Resizer = styled.div`
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: ${({ theme }) => theme.bodyColor};
+  bottom: -4px;
+  right: -7px;
+  cursor: se-resize;
+`
 
 const MenuButton = styled(HiMenuAlt3)`
   color: ${({ theme }) => theme.bodyColor};
@@ -198,7 +191,6 @@ const AppWindowWrapper = styled.div<{
   left: number
   top: number
   isScreenCollapsed: boolean
-  zIndex: number
 }>`
   position: fixed;
   overflow: hidden;
@@ -215,7 +207,6 @@ const AppWindowWrapper = styled.div<{
     }
   }}
 
-  z-index: ${(props) => props.zIndex};
   width: 100%;
   height: 100%;
 

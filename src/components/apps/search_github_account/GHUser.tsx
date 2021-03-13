@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { AddToFavorites } from './AddToFavorites'
 import { GHUserType } from './types'
 
-interface Props {
+type Props = {
   searchInput: string
   user: GHUserType | null
   errors: string

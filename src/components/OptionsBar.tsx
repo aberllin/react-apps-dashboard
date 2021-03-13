@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { IoMdClose } from 'react-icons/io'
 import { OptionType, Option } from '../modules/appsData'
 
-interface Props {
+type Props = {
   setIsOptionBarOpen: React.Dispatch<React.SetStateAction<boolean>>
   setOptionModal: (title: string) => void
   options?: Option[]
@@ -69,10 +69,18 @@ const CloseIcon = styled.div`
 
 const OptionsWrapper = styled.div`
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 
 const OptionItem = styled.div`
   font-size: 25px;
   color: ${({ theme }) => theme.bodyColor};
   cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: green;
+  }
 `

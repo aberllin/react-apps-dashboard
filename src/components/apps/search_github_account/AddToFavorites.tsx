@@ -3,7 +3,7 @@ import { AiOutlineStar } from 'react-icons/ai'
 import { GHUserType } from './types'
 import { AiFillStar } from 'react-icons/ai'
 
-interface Props {
+type Props = {
   user: GHUserType
 }
 

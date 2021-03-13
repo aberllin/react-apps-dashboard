@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { RiSendPlaneFill } from 'react-icons/ri'
 
-interface Props {
+type Props = {
   onSubmitButton: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void

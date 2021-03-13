@@ -5,8 +5,7 @@ import { FiTrash } from 'react-icons/fi'
 import { BiCircle } from 'react-icons/bi'
 import { Todo as TodoType } from './Form'
 
-
-interface Props {
+type Props = {
   todos: TodoType[]
   setTodos: (value: TodoType[]) => void
   text: string
@@ -66,7 +65,6 @@ export const Todo = React.forwardRef<HTMLInputElement, Props>(
     )
   },
 )
-
 
 const TodoWrapper = styled.div`
   display: flex;
