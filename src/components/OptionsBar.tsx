@@ -6,7 +6,10 @@ import { OptionType, Option } from '../modules/appsData'
 type Props = {
   setIsOptionBarOpen: React.Dispatch<React.SetStateAction<boolean>>
   setOptionModal: (title: string) => void
-  options?: Option[]
+  options?: {
+    title: string
+    onClick: () => void
+  }[]
 }
 
 export const OptionsBar = ({
@@ -14,12 +17,12 @@ export const OptionsBar = ({
   setOptionModal,
   options,
 }: Props) => {
-  const handleOptionClick = (option: Option) => {
-    if (option.type === OptionType.function) {
-      return option.option()
-    }
+  const handleOptionClick = (option: {
+    title: string
+    onClick: () => void
+  }) => {
+    option.onClick()
     setIsOptionBarOpen(false)
-    return setOptionModal(option.optionTitle)
   }
 
   return (
@@ -29,11 +32,8 @@ export const OptionsBar = ({
       </CloseIcon>
       <OptionsWrapper>
         {options?.map((opt) => (
-          <OptionItem
-            key={opt.optionTitle}
-            onClick={() => handleOptionClick(opt)}
-          >
-            {opt.optionTitle}
+          <OptionItem key={opt.title} onClick={() => handleOptionClick(opt)}>
+            {opt.title}
           </OptionItem>
         ))}
       </OptionsWrapper>

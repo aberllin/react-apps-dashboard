@@ -93,14 +93,8 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
       <Toggle onClick={changeTheme} theme={theme} />
       {openedWindows &&
         openedWindows.map(({ id, isCollapsed }) => {
-          return (
-            <AppWindow
-              id={id}
-              isCollapsed={isCollapsed}
-              onCollapse={collapseWindow}
-              onClose={onClose}
-            />
-          )
+          const app = appDataMap[id]
+          app.renderWindow(isCollapsed, onClose, collapseWindow, id)
         })}
     </Container>
   )

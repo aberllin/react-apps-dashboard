@@ -64,14 +64,16 @@ export const appDataMap: { [id: string]: mapType } = {
   '5': {
     title: 'To Do List',
     image: todoIcon,
-    app: <ToDoApp />,
-    options: [
-      {
-        optionTitle: 'Share',
-        option: <ShareOption />,
-        type: OptionType.component,
-      },
-    ],
+    renderWindow: (isCollapsed, onClose, collapseWindow, id) => {
+      return (
+        <ToDoApp
+          isCollapsed={isCollapsed}
+          onCollapse={collapseWindow}
+          onClose={onClose}
+          id={id}
+        />
+      )
+    },
   },
   '6': {
     title: 'Timer',

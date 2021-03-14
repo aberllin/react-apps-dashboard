@@ -3,8 +3,17 @@ import { Form } from './Form'
 import { ToDoList } from './ToDoList'
 import styled from 'styled-components'
 import { Todo } from './Form'
+import { AppWindow } from '../../AppWindow2'
+import { ShareOption } from './share_option/ShareOption'
 
-export const ToDoApp = () => {
+type Props = {
+  id: string
+  isCollapsed: boolean
+  onCollapse: (id: string) => void
+  onClose: (id: string) => void
+}
+
+export const ToDoApp = ({isCollapsed, onCollapse, id, onClose }: Props) => {
   const [inputText, setInputText] = useState<string>('')
   const [todos, setTodos] = useState<Todo[]>([])
 
@@ -18,16 +27,24 @@ export const ToDoApp = () => {
     localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
 
+  const options = [{title: 'Share', onClick: () => {
+    return <ShareOption />
+  }}, {title: 'Clean Todo List', onClick: () => {
+    setTodos([])
+    }]
+
   return (
-    <AppWrapper>
-      <Form
-        inputText={inputText}
-        setInputText={setInputText}
-        todos={todos}
-        setTodos={setTodos}
-      />
-      <ToDoList todos={todos} setTodos={setTodos} />
-    </AppWrapper>
+    <AppWindow id={id} isCollapsed={isCollapsed} onCollapse={onCollapse} onClose={onClose} options={options} >
+      <AppWrapper>
+        <Form
+          inputText={inputText}
+          setInputText={setInputText}
+          todos={todos}
+          setTodos={setTodos}
+        />
+        <ToDoList todos={todos} setTodos={setTodos} />
+      </AppWrapper>
+    </AppWindow>
   )
 }
 
