@@ -3,19 +3,28 @@ import { Form } from './Form'
 import { ToDoList } from './ToDoList'
 import styled from 'styled-components'
 import { Todo } from './Form'
-import { AppWindow } from '../../AppWindow2'
+import { AppWindow } from '../../AppWindow'
 import { ShareOption } from './share_option/ShareOption'
+import { AppOption } from '../../../modules/appsData'
 
 type Props = {
   id: string
   isCollapsed: boolean
   onCollapse: (id: string) => void
   onClose: (id: string) => void
+  coordinates: { left: number; top: number }
 }
 
-export const ToDoApp = ({isCollapsed, onCollapse, id, onClose }: Props) => {
+export const ToDoApp = ({
+  isCollapsed,
+  onCollapse,
+  id,
+  onClose,
+  coordinates,
+}: Props) => {
   const [inputText, setInputText] = useState<string>('')
   const [todos, setTodos] = useState<Todo[]>([])
+  const [optionModal, setOptionModal] = useState<null | string>(null)
 
   useEffect(() => {
     const inStorage = localStorage.getItem('todos')
@@ -27,14 +36,30 @@ export const ToDoApp = ({isCollapsed, onCollapse, id, onClose }: Props) => {
     localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
 
-  const options = [{title: 'Share', onClick: () => {
-    return <ShareOption />
-  }}, {title: 'Clean Todo List', onClick: () => {
-    setTodos([])
-    }]
+  const options: AppOption[] = [
+    {
+      title: 'Share',
+      component: <ShareOption onClose={() => setOptionModal(null)} />,
+    },
+    {
+      title: 'Clean Todo List',
+      callback: () => {
+        setTodos([])
+      },
+    },
+  ]
 
   return (
-    <AppWindow id={id} isCollapsed={isCollapsed} onCollapse={onCollapse} onClose={onClose} options={options} >
+    <AppWindow
+      id={id}
+      isCollapsed={isCollapsed}
+      onCollapse={onCollapse}
+      onClose={onClose}
+      options={options}
+      optionModal={optionModal}
+      setOptionModal={setOptionModal}
+      coordinates={coordinates}
+    >
       <AppWrapper>
         <Form
           inputText={inputText}

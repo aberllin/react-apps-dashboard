@@ -2,26 +2,43 @@ import React, { useEffect, useState, createRef } from 'react'
 import styled from 'styled-components'
 import { GiPlainCircle } from 'react-icons/gi'
 import { HiMenuAlt3 } from 'react-icons/hi'
-import { OptionsBar } from '../components/OptionsBar'
-import { appDataMap } from '../modules/appsData'
+import { OptionsBar } from './OptionsBar'
 import { useDrag } from './hooks/useDrag'
+import { Resizer } from './hooks/Resizer'
+import { AppOption } from '../modules/appsData'
+import { useWindows } from '../providers/WindowsProvider'
 
 type Props = {
   id: string
   isCollapsed: boolean
   onCollapse: (id: string) => void
   onClose: (id: string) => void
+  children: JSX.Element
+  options?: AppOption[]
+  optionModal?: string | null
+  setOptionModal?: (title: string) => void
+  coordinates: { left: number; top: number }
 }
 
-export const AppWindow = ({ id, isCollapsed, onCollapse, onClose }: Props) => {
+export const AppWindow = ({
+  id,
+  isCollapsed,
+  onCollapse,
+  onClose,
+  children,
+  options,
+  setOptionModal,
+  optionModal,
+  coordinates,
+}: Props) => {
+  const { dragWindow } = useWindows()
+
   useEffect(() => {
     document.body.style.overflow = 'hidden'
   }, [])
 
   const navRef = createRef<HTMLDivElement>()
-  const onDrag = useDrag(navRef)
-
-  const app = appDataMap[id]
+  const drag = useDrag(navRef, id)
 
   const [fullScreen, setFullScreen] = useState<boolean>(false)
   const handleFullScreen = () => {
@@ -37,18 +54,29 @@ export const AppWindow = ({ id, isCollapsed, onCollapse, onClose }: Props) => {
   }
 
   const [isOptionBarOpen, setIsOptionBarOpen] = useState<boolean>(false)
-  const [optionModal, setOptionModal] = useState<null | string>(null)
-
   const currentOpenedOption =
-    app.options && app.options.find((opt) => opt.optionTitle === optionModal)
+    options && options.find((opt) => opt.title === optionModal)
 
   return (
     <AppWindowWrapper
+      coordinates={drag.coordinates ?? coordinates}
       isFullScreen={fullScreen}
       isScreenCollapsed={isCollapsed}
       ref={navRef}
+      onClick={() => {
+        dragWindow(
+          id,
+          drag.coordinates?.left ?? coordinates.left,
+          drag.coordinates?.top ?? coordinates.top,
+        )
+      }}
     >
-      <AppCardNav onMouseDown={onDrag}>
+      <Resizer ref={navRef} />
+      <AppCardNav
+        onMouseDown={() => {
+          drag.callback()
+        }}
+      >
         <NavButtons>
           <div
             onClick={(e) => {
@@ -75,40 +103,31 @@ export const AppWindow = ({ id, isCollapsed, onCollapse, onClose }: Props) => {
             <FullScreenButton />
           </div>
         </NavButtons>
-        <div
-          onClick={(e) => {
-            e.stopPropagation()
-            setIsOptionBarOpen((prev) => !prev)
-          }}
-        >
-          <MenuButton />
-        </div>
-        {isOptionBarOpen && (
-          <OptionsBar
-            setIsOptionBarOpen={setIsOptionBarOpen}
-            setOptionModal={setOptionModal}
-            options={app.options}
-          />
+        {options && (
+          <>
+            <div
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsOptionBarOpen((prev) => !prev)
+              }}
+            >
+              <MenuButton />
+            </div>
+            {isOptionBarOpen && (
+              <OptionsBar
+                setIsOptionBarOpen={setIsOptionBarOpen}
+                setOptionModal={setOptionModal}
+                options={options}
+              />
+            )}
+            {currentOpenedOption && currentOpenedOption.component}
+          </>
         )}
-
-        {currentOpenedOption && currentOpenedOption.option}
       </AppCardNav>
-      <App>{app.app ? app.app : 'Coming soon'}</App>
-      <Resizer />
+      <App>{children}</App>
     </AppWindowWrapper>
   )
 }
-
-const Resizer = styled.div`
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 20px;
-  background: ${({ theme }) => theme.bodyColor};
-  bottom: -4px;
-  right: -7px;
-  cursor: se-resize;
-`
 
 const MenuButton = styled(HiMenuAlt3)`
   color: ${({ theme }) => theme.bodyColor};
@@ -121,12 +140,20 @@ const FullScreenButton = styled(GiPlainCircle)`
   font-size: 20px;
   padding-right: 6px;
   cursor: pointer;
+
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
 `
 const HideButton = styled(GiPlainCircle)`
   color: #cba317;
   font-size: 20px;
   padding-right: 6px;
   cursor: pointer;
+
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
 `
 const CloseButton = styled(GiPlainCircle)`
   color: #cb1717;
@@ -157,45 +184,52 @@ const App = styled.div`
 const AppWindowWrapper = styled.div<{
   isFullScreen: boolean
   isScreenCollapsed: boolean
+  coordinates: { top: number; left: number }
 }>`
   position: fixed;
   overflow: hidden;
 
-  ${(props) => {
-    if (props.isScreenCollapsed) {
-      return `
-      opacity: 0;
-      `
-    } else {
-      return `
-      opacity: 1;
-      `
-    }
-  }}
-
-  width: 100%;
-  height: 100%;
-
-  ${(props) => {
-    if (props.isFullScreen) {
-      return `
-            max-width: 100%;       
-            max-height: 100%; 
-            left: 0;
-            top: 0;      
-          `
-    } else {
-      return `
-     max-width: 600px;
-     max-height: 400px;
-     left: 200px;
-     top: 200px;
-     border-radius: 20px;
-     `
-    }
-  }};
-
   font-size: 35px;
   color: ${({ theme }) => theme.textColor};
   background-color: ${({ theme }) => theme.bodyColor};
+
+  @media screen and (min-width: 480px) {
+    ${(props) => {
+      if (props.isScreenCollapsed) {
+        return `
+        opacity: 0;
+        `
+      } else {
+        return `
+        opacity: 1;
+        `
+      }
+    }}
+
+    ${(props) => {
+      if (props.isFullScreen) {
+        return `
+              width: 100% !important;       
+              height: 100% !important;         
+              left: 0 !important;
+              top: 0 !important;
+            `
+      } else {
+        return `
+       min-width: 600px;
+       min-height: 400px;
+       left: ${props.coordinates.left}px;
+       top: ${props.coordinates.top}px;
+       border-radius: 20px;
+       `
+      }
+    }};
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+  }
 `

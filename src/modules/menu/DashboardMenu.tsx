@@ -6,12 +6,14 @@ import { IoImageOutline } from 'react-icons/io5'
 import { useOutsideClick } from '../../components/hooks/useOutsideClick'
 import { BsFillImageFill } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
+import { useWindows } from '../../providers/WindowsProvider'
 
 type Props = {
   setBackground: (value: string) => void
 }
 
 export const DashboardMenu = ({ setBackground }: Props) => {
+  const closeAllWindows = useWindows().closeAllWindows
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
   const ref = useRef(null)
 
@@ -62,7 +64,7 @@ export const DashboardMenu = ({ setBackground }: Props) => {
             <OptionIcon>
               <IoMdClose />
             </OptionIcon>
-            <OptionTitle>Close all apps</OptionTitle>
+            <OptionTitle onClick={closeAllWindows}>Close all apps</OptionTitle>
           </Option>
         </MenuWrapper>
       ) : null}

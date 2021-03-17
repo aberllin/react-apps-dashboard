@@ -71,22 +71,22 @@ const Image = styled.div<{ background: string }>`
   background-size: cover;
   border-radius: 50%;
   border: 1px solid #faf4f4;
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
 
   @media screen and (max-width: 992px) {
-    width: 130px;
-    height: 130px;
+    width: 110px;
+    height: 110px;
   }
 
   @media screen and (max-width: 768px) {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
 
   @media screen and (max-width: 600px) {
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
   }
 
   @media screen and (max-width: 400px) {
@@ -103,7 +103,7 @@ const Columns = styled.div`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 60px;
+  padding: 45px;
   text-align: left;
 
   @media screen and (max-width: 992px) {
@@ -128,12 +128,12 @@ const Row = styled.div`
   justify-content: center;
 `
 const Login = styled.a`
-  font-size: 28px;
+  font-size: 25px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 50px;
+  padding: 30px;
   color: ${({ theme }) => theme.textColor};
 
   @media screen and (max-width: 992px) {

@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import { themes } from './styles/theme'
 import { GlobalStyles } from './styles/global'
 import { NotificationProvider } from './providers/NotificationProvider'
+import { WindowsProvider } from './providers/WindowsProvider'
 
 enum Theme {
   light = 'light',
@@ -35,7 +36,9 @@ function App() {
       <>
         <GlobalStyles />
         <NotificationProvider>
-          <Dashboard changeTheme={changeTheme} theme={theme} />
+          <WindowsProvider>
+            <Dashboard changeTheme={changeTheme} theme={theme} />
+          </WindowsProvider>
         </NotificationProvider>
       </>
     </ThemeProvider>

@@ -1,43 +1,44 @@
 import React from 'react'
 import styled from 'styled-components'
 import { GHUserType } from '../types'
+import { Modal } from '../../../common/Modal'
 
-export const ShowFavorites = () => {
+type Props = {
+  onClose: () => void
+}
+
+export const ShowFavorites = ({ onClose }: Props) => {
   const favoriteUsers = localStorage.getItem('favorites')
   const parsedFavorites: GHUserType[] = favoriteUsers
     ? JSON.parse(favoriteUsers)
     : []
 
   return (
-    <Wrapper>
-      {parsedFavorites.length > 0 ? (
-        parsedFavorites.map((favUser) => (
-          <FavUserWrapper>
-            <Image background={favUser.avatar_url} />
-            <LinktoUser href={`https://github.com/${favUser.login}`}>
-              {favUser.login}
-            </LinktoUser>
-          </FavUserWrapper>
-        ))
-      ) : (
-        <div style={{ color: 'red' }}>You don't have any</div>
-      )}
-    </Wrapper>
+    <Modal
+      onClose={onClose}
+      title="Your favorite users"
+      width="500"
+      height="700"
+      top="5"
+      left="30"
+    >
+      <div>
+        {parsedFavorites.length > 0 ? (
+          parsedFavorites.map((favUser) => (
+            <FavUserWrapper>
+              <Image background={favUser.avatar_url} />
+              <LinktoUser href={`https://github.com/${favUser.login}`}>
+                {favUser.login}
+              </LinktoUser>
+            </FavUserWrapper>
+          ))
+        ) : (
+          <div style={{ color: 'red' }}>You don't have any</div>
+        )}
+      </div>
+    </Modal>
   )
 }
-
-const Wrapper = styled.div`
-  position: fixed;
-  background: white;
-  border: 5px solid #2e3a59;
-  width: 500px;
-  border-radius: 20px;
-  height: 700px;
-  left: 30%;
-  padding: 20px;
-  top: 5%;
-  z-index: 10;
-`
 
 const FavUserWrapper = styled.div`
   display: flex;

@@ -1,28 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
 import { IoMdClose } from 'react-icons/io'
-import { OptionType, Option } from '../modules/appsData'
+import { AppOption } from '../modules/appsData'
 
 type Props = {
   setIsOptionBarOpen: React.Dispatch<React.SetStateAction<boolean>>
-  setOptionModal: (title: string) => void
-  options?: {
-    title: string
-    onClick: () => void
-  }[]
+  options: AppOption[]
+  setOptionModal?: (title: string) => void
 }
 
 export const OptionsBar = ({
   setIsOptionBarOpen,
-  setOptionModal,
   options,
+  setOptionModal,
 }: Props) => {
-  const handleOptionClick = (option: {
-    title: string
-    onClick: () => void
-  }) => {
-    option.onClick()
+  const handleOptionClick = (option: AppOption) => {
+    if (option.callback) {
+      return option.callback()
+    }
     setIsOptionBarOpen(false)
+
+    return setOptionModal && setOptionModal(option.title)
   }
 
   return (
@@ -31,7 +29,7 @@ export const OptionsBar = ({
         <IoMdClose />
       </CloseIcon>
       <OptionsWrapper>
-        {options?.map((opt) => (
+        {options.map((opt) => (
           <OptionItem key={opt.title} onClick={() => handleOptionClick(opt)}>
             {opt.title}
           </OptionItem>

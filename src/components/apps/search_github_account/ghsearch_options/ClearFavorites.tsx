@@ -1,39 +1,57 @@
+import React from 'react'
 import styled from 'styled-components'
+import { Modal } from '../../../common/Modal'
 
-export const ClearFavorites = () => {
+type Props = {
+  onClose: () => void
+}
+
+export const ClearFavorites = ({ onClose }: Props) => {
   const handleClear = () => {
     localStorage.removeItem('favorites')
   }
   return (
-    <Wrapper>
-      <ClearMessage>Do you want to clear your favorites?</ClearMessage>
-      <ClearButton
-        onClick={() => {
-          handleClear()
-        }}
-      >
-        Clear
-      </ClearButton>
-    </Wrapper>
+    <Modal
+      height="300"
+      width="500"
+      onClose={onClose}
+      title="Clear favorites"
+      top="30"
+      left="30"
+    >
+      <>
+        <ClearMessage>Do you want to clear your favorites?</ClearMessage>
+        <ButtonsWrapper>
+          <Button
+            onClick={() => {
+              onClose()
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              handleClear()
+              onClose()
+            }}
+          >
+            Clear
+          </Button>
+        </ButtonsWrapper>
+      </>
+    </Modal>
   )
 }
 
-const Wrapper = styled.div`
-  position: fixed;
-  background: white;
-  border: 5px solid #2e3a59;
-  width: 500px;
-  border-radius: 20px;
-  height: 300px;
-  left: 30%;
-  top: 30%;
-  z-index: 10;
+const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `
 
 const ClearMessage = styled.div`
   font-size: 25px;
 `
-const ClearButton = styled.div`
+const Button = styled.div`
   outline: none;
   font-size: 17px;
   border: none;

@@ -1,15 +1,19 @@
 import { useState, useEffect, useCallback } from 'react'
 
-export const useDrag = (ref: React.RefObject<HTMLDivElement>) => {
+export const useDrag = (ref: React.RefObject<HTMLDivElement>, id: string) => {
   const [mouseDown, setMouseDown] = useState<boolean>(false)
+  const [coordinates, setCoordinates] = useState<{
+    left: number
+    top: number
+  }>()
 
   const handleDrag = useCallback(
     (movementX: number, movementY: number) => {
       const currentRef = ref.current
       if (!currentRef) return
       const { x, y } = currentRef.getBoundingClientRect()
-      currentRef.style.left = `${x + movementX}px`
-      currentRef.style.top = `${y + movementY}px`
+
+      setCoordinates({ left: x + movementX, top: y + movementY })
     },
     [ref],
   )
@@ -26,7 +30,7 @@ export const useDrag = (ref: React.RefObject<HTMLDivElement>) => {
     return () => {
       window.removeEventListener('mousemove', mousemove)
     }
-  }, [ref, mouseDown])
+  }, [ref, mouseDown, handleDrag])
 
   useEffect(() => {
     const mouseup = () => setMouseDown(false)
@@ -35,5 +39,8 @@ export const useDrag = (ref: React.RefObject<HTMLDivElement>) => {
     return () => window.removeEventListener('mouseup', mouseup)
   }, [])
 
-  return () => setMouseDown(true)
+  return {
+    callback: () => setMouseDown(true),
+    coordinates,
+  }
 }

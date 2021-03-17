@@ -7,25 +7,16 @@ import background_img from '../images/background_img.jpeg'
 import { CurrentTime } from './date/currentTime'
 import { CurrentDay } from './date/currentDay'
 import { DashboardMenu } from './menu/DashboardMenu'
-import { AppWindow } from '../components/AppWindow'
+import { useWindows } from '../providers/WindowsProvider'
 
 type DashboardProps = {
   theme: string
   changeTheme: () => void
 }
 
-export type AppWindowDragTypes = {
-  diffX?: number
-  diffY?: number
-  dragging?: boolean
-  styles: {
-    left: number
-    top: number
-  }
-}
-
 export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
   const [background, setBackground] = useState<string>(background_img)
+  const { onCloseWindow, setWindows, windows, collapseWindow } = useWindows()
 
   useEffect(() => {
     const inStorage = localStorage.getItem('background')
@@ -37,35 +28,27 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
     localStorage.setItem('background', background)
   }, [background])
 
-  const [openedWindows, setOpenedWindows] = useState<
-    { id: string; isCollapsed: boolean }[]
-  >([])
-
-  const collapseWindow = (id: string) => {
-    const newOpenedWindows = openedWindows.map((window) =>
-      window.id === id ? { ...window, isCollapsed: true } : window,
-    )
-    setOpenedWindows(newOpenedWindows)
-  }
-
-  const onClose = (id: string) => {
-    setOpenedWindows(openedWindows.filter((window) => window.id !== id))
-  }
-
   const openWindow = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     id: string,
   ) => {
-    if (openedWindows.find((window) => window.id === id)) {
-      const newOpenedWindows = openedWindows.map((window) =>
+    if (windows.find((window) => window.id === id)) {
+      const newOpenedWindows = windows.map((window) =>
         window.id === id ? { ...window, isCollapsed: false } : { ...window },
       )
 
-      setOpenedWindows(newOpenedWindows)
+      setWindows(newOpenedWindows)
     } else {
-      setOpenedWindows((prevState) => [
+      setWindows((prevState) => [
         ...prevState.map((window) => ({ ...window })),
-        { id, isCollapsed: false },
+        {
+          id,
+          isCollapsed: false,
+          coordinates: {
+            left: 200 + windows.length * 20,
+            top: 200 + windows.length * 20,
+          },
+        },
       ])
     }
   }
@@ -83,22 +66,48 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
         {appDataIds.map((id) => {
           const app = appDataMap[id]
           return (
-            <div onClick={(e) => openWindow(e, id)}>
-              <AppCard title={app.title} image={app.image} />
-            </div>
+            <CardandDot>
+              <div onClick={(e) => openWindow(e, id)}>
+                <AppCard title={app.title} image={app.image} />
+              </div>
+              {windows.find((app) => app.id === id) && <Dot />}
+            </CardandDot>
           )
         })}
       </AppCardsWrapper>
       <DashboardMenu setBackground={setBackground} />
       <Toggle onClick={changeTheme} theme={theme} />
-      {openedWindows &&
-        openedWindows.map(({ id, isCollapsed }) => {
+      {windows &&
+        windows.map(({ id, isCollapsed, coordinates }) => {
           const app = appDataMap[id]
-          app.renderWindow(isCollapsed, onClose, collapseWindow, id)
+          if (app.app) {
+            return app.app(
+              isCollapsed,
+              onCloseWindow,
+              collapseWindow,
+              id,
+              coordinates,
+            )
+          }
         })}
     </Container>
   )
 }
+
+const CardandDot = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const Dot = styled.div`
+  height: 5px;
+  width: 5px;
+  color: red;
+
+  @media sreen and (max-width: 480px) {
+    display: none;
+  }
+`
 
 const Container = styled.div<{ background: string }>`
   height: 100%;
@@ -145,5 +154,17 @@ const AppCardsWrapper = styled.div`
   @media screen and (max-width: 834px) {
     max-width: 450px;
     max-height: 70px;
+  }
+
+  @media screen and (max-width: 480px) {
+    max-width: 450px;
+    max-height: 70px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-flow: wrap;
+    top: 40px;
+    background: none;
+    width: 100%;
   }
 `

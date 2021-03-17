@@ -3,7 +3,11 @@ import { ShareForm } from './ShareForm'
 import { FormSuccess } from './FormSuccess'
 import styled from 'styled-components'
 
-export const ShareOption = () => {
+type Props = {
+  onClose: () => void
+}
+
+export const ShareOption = ({ onClose }: Props) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [errors, setErrors] = useState<string>('')
   const [isSuccess, setIsSuccess] = useState(false)
@@ -29,7 +33,7 @@ export const ShareOption = () => {
     <Wrapper>
       <NavBar>
         <div>Share your Todo List</div>
-        <div>x</div>
+        <div onClick={onClose}>x</div>
       </NavBar>
       {!isSuccess ? (
         <ShareForm
