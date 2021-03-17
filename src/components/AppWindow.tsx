@@ -198,6 +198,7 @@ const AppWindowWrapper = styled.div<{
       if (props.isScreenCollapsed) {
         return `
         opacity: 0;
+        z-index: -1000;
         `
       } else {
         return `

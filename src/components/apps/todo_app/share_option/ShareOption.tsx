@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { ShareForm } from './ShareForm'
 import { FormSuccess } from './FormSuccess'
-import styled from 'styled-components'
+import { Modal } from '../../../common/Modal'
 
 type Props = {
   onClose: () => void
@@ -30,38 +30,25 @@ export const ShareOption = ({ onClose }: Props) => {
   }
 
   return (
-    <Wrapper>
-      <NavBar>
-        <div>Share your Todo List</div>
-        <div onClick={onClose}>x</div>
-      </NavBar>
+    <Modal
+      height="300"
+      width="500"
+      onClose={onClose}
+      title="Clear favorites"
+      top="30"
+      left="30"
+    >
       {!isSuccess ? (
         <ShareForm
           errors={errors}
           value={inputValue}
           onInputChange={handleChange}
           onSubmitButton={onSubmit}
+          onClose={onClose}
         />
       ) : (
         <FormSuccess />
       )}
-    </Wrapper>
+    </Modal>
   )
 }
-
-const NavBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
-const Wrapper = styled.div`
-  position: fixed;
-  background: white;
-  border: 5px solid #2e3a59;
-  width: 500px;
-  border-radius: 20px;
-  height: 300px;
-  left: 30%;
-  top: 30%;
-  z-index: 10;
-`

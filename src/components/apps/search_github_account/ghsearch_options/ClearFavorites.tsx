@@ -50,6 +50,7 @@ const ButtonsWrapper = styled.div`
 
 const ClearMessage = styled.div`
   font-size: 25px;
+  color: red;
 `
 const Button = styled.div`
   outline: none;
@@ -63,6 +64,7 @@ const Button = styled.div`
   margin: 30px auto;
   background: gainsboro;
   cursor: pointer;
+  border-radius: 15px;
   &:hover {
     background: red;
     color: white;
