@@ -89,6 +89,7 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
               coordinates,
             )
           }
+          return
         })}
     </Container>
   )
