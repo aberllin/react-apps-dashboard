@@ -1,7 +1,7 @@
 import 'styled-components';
 
 declare module 'styled-components' {
-  export type DefaultTheme = {
+  export interface DefaultTheme {
     bodyColor: string,
     textColor: string,
     cardShadow: string
