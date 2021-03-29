@@ -103,12 +103,8 @@ const Columns = styled.div`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 45px;
+  padding: 8px;
   text-align: left;
-
-  @media screen and (max-width: 992px) {
-    padding: 10px;
-  }
 `
 
 const Row = styled.div`

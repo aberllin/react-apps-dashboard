@@ -45,8 +45,8 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
           id,
           isCollapsed: false,
           coordinates: {
-            left: 200 + windows.length * 20,
-            top: 200 + windows.length * 20,
+            left: 150 + windows.length * 20,
+            top: 100 + windows.length * 20,
           },
         },
       ])
