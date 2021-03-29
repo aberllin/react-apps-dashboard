@@ -1,4 +1,4 @@
-**MacOS-like Desktop on the web**	:U+1F5A5:
+**MacOS-like Desktop on the web**	:desktop_computer:
 
 It's a replica of the desktop and window management experience in macOS. There is a working dock; windows can be opened from the dock, moved around, resized, maximized, and minimized. 
 
