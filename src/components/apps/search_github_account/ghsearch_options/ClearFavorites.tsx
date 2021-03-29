@@ -1,27 +1,58 @@
+import React from 'react'
 import styled from 'styled-components'
+import { Modal } from '../../../common/Modal'
 
-export const ClearFavorites = () => {
+type Props = {
+  onClose: () => void
+}
+
+export const ClearFavorites = ({ onClose }: Props) => {
   const handleClear = () => {
     localStorage.removeItem('favorites')
   }
   return (
-    <>
-      <ClearMessage>Do you want to clear your favorites?</ClearMessage>
-      <ClearButton
-        onClick={() => {
-          handleClear()
-        }}
-      >
-        Clear
-      </ClearButton>
-    </>
+    <Modal
+      height="300"
+      width="500"
+      onClose={onClose}
+      title="Clear favorites"
+      top="30"
+      left="30"
+    >
+      <>
+        <ClearMessage>Do you want to clear your favorites?</ClearMessage>
+        <ButtonsWrapper>
+          <Button
+            onClick={() => {
+              onClose()
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              handleClear()
+              onClose()
+            }}
+          >
+            Clear
+          </Button>
+        </ButtonsWrapper>
+      </>
+    </Modal>
   )
 }
 
+const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const ClearMessage = styled.div`
   font-size: 25px;
+  color: red;
 `
-const ClearButton = styled.div`
+const Button = styled.div`
   outline: none;
   font-size: 17px;
   border: none;
@@ -33,6 +64,7 @@ const ClearButton = styled.div`
   margin: 30px auto;
   background: gainsboro;
   cursor: pointer;
+  border-radius: 15px;
   &:hover {
     background: red;
     color: white;

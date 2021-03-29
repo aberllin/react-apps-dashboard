@@ -3,7 +3,7 @@ import { Todo } from './Todo'
 import styled from 'styled-components'
 import { Todo as TodoType } from './Form'
 
-interface Props {
+type Props = {
   todos: TodoType[]
   setTodos: (value: TodoType[]) => void
 }

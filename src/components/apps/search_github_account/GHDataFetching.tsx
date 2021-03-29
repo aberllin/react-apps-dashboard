@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { GHUser } from './GHUser'
 import { GHUserType } from './types'
+import styled from 'styled-components'
 
-interface Props {
+type Props = {
   searchInput: string
 }
 
@@ -30,8 +31,13 @@ export const GHDataFetching = ({ searchInput }: Props) => {
   }, [REACT_APP_TOKEN, searchInput])
 
   return (
-    <>
+    <Div>
       <GHUser user={user} searchInput={searchInput} errors={errors} />
-    </>
+    </Div>
   )
 }
+
+const Div = styled.div`
+  width: 100%;
+  max-width: 80%;
+`

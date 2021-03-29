@@ -3,8 +3,8 @@ import { Dashboard } from './modules/Dashboard'
 import { ThemeProvider } from 'styled-components'
 import { themes } from './styles/theme'
 import { GlobalStyles } from './styles/global'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { NotificationProvider } from './providers/NotificationProvider'
+import { WindowsProvider } from './providers/WindowsProvider'
 
 enum Theme {
   light = 'light',
@@ -32,16 +32,16 @@ function App() {
   }, [theme])
 
   return (
-    <Router>
-      <ThemeProvider theme={themes[theme]}>
-        <>
-          <GlobalStyles />
-          <NotificationProvider>
+    <ThemeProvider theme={themes[theme]}>
+      <>
+        <GlobalStyles />
+        <NotificationProvider>
+          <WindowsProvider>
             <Dashboard changeTheme={changeTheme} theme={theme} />
-          </NotificationProvider>
-        </>
-      </ThemeProvider>
-    </Router>
+          </WindowsProvider>
+        </NotificationProvider>
+      </>
+    </ThemeProvider>
   )
 }
 

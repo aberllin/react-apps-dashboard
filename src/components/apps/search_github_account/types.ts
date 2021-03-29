@@ -1,4 +1,4 @@
-export interface GHUserType {
+export type GHUserType = {
     avatar_url: string
     id: number
     login: string

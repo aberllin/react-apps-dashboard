@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { ShareForm } from './ShareForm'
 import { FormSuccess } from './FormSuccess'
+import { Modal } from '../../../common/Modal'
 
-export const ShareOption = () => {
+type Props = {
+  onClose: () => void
+}
+
+export const ShareOption = ({ onClose }: Props) => {
   const [inputValue, setInputValue] = useState<string>('')
   const [errors, setErrors] = useState<string>('')
   const [isSuccess, setIsSuccess] = useState(false)
@@ -25,17 +30,25 @@ export const ShareOption = () => {
   }
 
   return (
-    <>
+    <Modal
+      height="300"
+      width="500"
+      onClose={onClose}
+      title="Share"
+      top="30"
+      left="30"
+    >
       {!isSuccess ? (
         <ShareForm
           errors={errors}
           value={inputValue}
           onInputChange={handleChange}
           onSubmitButton={onSubmit}
+          onClose={onClose}
         />
       ) : (
         <FormSuccess />
       )}
-    </>
+    </Modal>
   )
 }

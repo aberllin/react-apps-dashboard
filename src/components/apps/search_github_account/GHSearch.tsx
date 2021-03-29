@@ -2,9 +2,28 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { GHDataFetching } from './GHDataFetching'
 import { useNotification } from '../../../providers/NotificationProvider'
+import { AppWindow } from '../../AppWindow'
+import { ShowFavorites } from './ghsearch_options/ShowFavorites'
+import { ClearFavorites } from './ghsearch_options/ClearFavorites'
+import { AppOption } from '../../../modules/appsData'
 
-export const GHSearch = () => {
+type Props = {
+  id: string
+  isCollapsed: boolean
+  onCollapse: (id: string) => void
+  onClose: (id: string) => void
+  coordinates: { left: number; top: number }
+}
+
+export const GHSearch = ({
+  isCollapsed,
+  onCollapse,
+  id,
+  onClose,
+  coordinates,
+}: Props) => {
   const [searchInput, setSearchInput] = useState<string>('')
+  const [optionModal, setOptionModal] = useState<null | string>(null)
 
   const notify = useNotification()
 
@@ -22,8 +41,28 @@ export const GHSearch = () => {
     }
   }
 
+  const options: AppOption[] = [
+    {
+      title: 'Show favorites',
+      component: <ShowFavorites onClose={() => setOptionModal(null)} />,
+    },
+    {
+      title: 'Clear favorites',
+      component: <ClearFavorites onClose={() => setOptionModal(null)} />,
+    },
+  ]
+
   return (
-    <>
+    <AppWindow
+      coordinates={coordinates}
+      id={id}
+      isCollapsed={isCollapsed}
+      onCollapse={onCollapse}
+      onClose={onClose}
+      options={options}
+      optionModal={optionModal}
+      setOptionModal={setOptionModal}
+    >
       <FormWrapper>
         <StyledInput
           value={searchInput}
@@ -34,7 +73,7 @@ export const GHSearch = () => {
         />
         <GHDataFetching searchInput={searchInput} />
       </FormWrapper>
-    </>
+    </AppWindow>
   )
 }
 
@@ -44,8 +83,8 @@ const FormWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
+  max-width: 900px;
+  margin: 50px auto;
 
   @media screen and (max-width: 992px) {
     max-width: 800px;
@@ -67,10 +106,11 @@ const StyledInput = styled.input`
   outline: 0;
   background: #c4c4c4;
   width: 100%;
-  max-width: 1000px;
+  max-width: 80%;
   border: 0;
-  height: 48px;
+  height: 52px;
   box-sizing: border-box;
   font-size: 14px;
   padding: 15px;
+  border-radius: 20px;
 `

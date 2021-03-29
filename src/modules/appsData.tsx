@@ -1,55 +1,86 @@
 import React from 'react'
-import forest from '../images/forest.jpg'
-import forest1 from '../images/forest1.jpg'
-import forest2 from '../images/forest2.jpg'
-import { ToDoApp } from '../components/apps/ToDoApp/ToDoApp'
-import { ShareOption } from '../components/menu_options/share_option/ShareOption'
+import todoIcon from '../images/Group 24.png'
+import ghIcon from '../images/coolicon.png'
+import { ToDoApp } from '../components/apps/todo_app/ToDoApp'
 import { GHSearch } from '../components/apps/search_github_account/GHSearch'
-import { ClearFavorites } from '../components/apps/search_github_account/ghsearch_options/ClearFavorites'
-import { ShowFavorites } from '../components/apps/search_github_account/ghsearch_options/ShowFavorites'
+import { Timer } from '../components/apps/timer/Timer'
 
-export interface AppType {
-  id: number
+export type mapType = {
   title: string
-  image: string
-  app?: JSX.Element
-  options?: Option[]
+  image?: string
+  app?: (
+    isCollapsed: boolean,
+    onClose: (id: string) => void,
+    collapseWindow: (id: string) => void,
+    id: string,
+    coordinates: { left: number; top: number },
+  ) => JSX.Element
 }
 
-export interface Option {
-  optionTitle: string
-  option: JSX.Element
+export type AppOption = {
+  title: string
+  component?: JSX.Element
+  callback?: () => void
 }
 
-export const appsData: AppType[] = [
-  {
-    id: 1,
-    title: 'To Do List',
-    image: forest,
-    app: <ToDoApp />,
-    options: [{ optionTitle: 'Share', option: <ShareOption /> }],
+export const appDataMap: { [id: string]: mapType } = {
+  '1': {
+    title: 'MacOS-like Desktop',
   },
-  {
-    id: 2,
+  '2': {
+    title: 'Calculator',
+  },
+  '3': {
+    title: 'Calculator',
+  },
+
+  '4': {
     title: 'Search GitHub Account',
-    image: forest,
-    app: <GHSearch />,
-    options: [
-      { optionTitle: 'Show Favorites', option: <ShowFavorites /> },
-      { optionTitle: 'Clear Favorites', option: <ClearFavorites /> },
-    ],
+    image: ghIcon,
+    app: (isCollapsed, onClose, collapseWindow, id, coordinates) => {
+      return (
+        <GHSearch
+          isCollapsed={isCollapsed}
+          onCollapse={collapseWindow}
+          onClose={onClose}
+          id={id}
+          coordinates={coordinates}
+        />
+      )
+    },
   },
-  { id: 3, title: 'Calculator', image: forest },
-  { id: 4, title: 'Calculator', image: forest },
-  { id: 5, title: 'Calculator', image: forest },
-  { id: 6, title: 'Timer', image: forest1 },
-  { id: 7, title: 'Timer', image: forest1 },
-  { id: 8, title: 'Timer', image: forest1 },
-  { id: 9, title: 'Timer', image: forest1 },
-  { id: 10, title: 'Timer', image: forest1 },
-  { id: 11, title: 'Weather', image: forest2 },
-  { id: 12, title: 'Weather', image: forest2 },
-  { id: 13, title: 'Weather', image: forest2 },
-  { id: 14, title: 'Weather', image: forest2 },
-  { id: 15, title: 'Weather', image: forest2 },
-]
+  '5': {
+    title: 'To Do List',
+    image: todoIcon,
+    app: (isCollapsed, onClose, collapseWindow, id, coordinates) => {
+      return (
+        <ToDoApp
+          isCollapsed={isCollapsed}
+          onCollapse={collapseWindow}
+          onClose={onClose}
+          id={id}
+          coordinates={coordinates}
+        />
+      )
+    },
+  },
+  '6': {
+    title: 'Timer',
+    app: (isCollapsed, onClose, collapseWindow, id, coordinates) => {
+      return (
+        <Timer
+          isCollapsed={isCollapsed}
+          onCollapse={collapseWindow}
+          onClose={onClose}
+          id={id}
+          coordinates={coordinates}
+        />
+      )
+    },
+  },
+  '7': {
+    title: 'Telegram',
+  },
+}
+
+export const appDataIds = ['1', '2', '3', '4', '5', '6', '7']

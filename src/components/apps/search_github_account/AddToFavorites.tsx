@@ -3,7 +3,7 @@ import { AiOutlineStar } from 'react-icons/ai'
 import { GHUserType } from './types'
 import { AiFillStar } from 'react-icons/ai'
 
-interface Props {
+type Props = {
   user: GHUserType
 }
 
@@ -43,7 +43,10 @@ export const AddToFavorites = ({ user }: Props) => {
   }, [user])
 
   return (
-    <div onClick={addToFavorite}>
+    <div
+      style={{ display: 'flex', alignItems: 'center' }}
+      onClick={addToFavorite}
+    >
       {!isFavorite ? (
         <AiOutlineStar style={{ cursor: 'pointer' }} />
       ) : (

@@ -6,7 +6,7 @@ import {
 } from '../providers/NotificationProvider'
 import { AiOutlineClose } from 'react-icons/ai'
 
-interface Props {
+type Props = {
   notification: NotificationState
   onClose: () => void
 }

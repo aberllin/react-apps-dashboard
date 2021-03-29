@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { Snackbar } from '../components/Snackbar'
 
-interface Props {
+type Props = {
   children: React.ReactNode
 }
 
-interface Context {
+type Context = {
   error: (text: string) => void
   success: (text: string) => void
 }
@@ -15,7 +15,7 @@ export enum NotificationTypes {
   Success,
 }
 
-export interface NotificationState {
+export type NotificationState = {
   text: string | null
   type: NotificationTypes
 }
