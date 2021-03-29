@@ -28,23 +28,37 @@ export const Modal = ({
     onClose()
   })
   return (
-    <Wrapper
-      width={parseInt(width)}
-      height={parseInt(height)}
-      left={parseInt(left)}
-      top={parseInt(top)}
-      ref={ref}
-    >
-      <NavWrapper>
-        <Title>{title}</Title>
-        <CloseIcon onClick={onClose}>
-          <IoMdClose />
-        </CloseIcon>
-      </NavWrapper>
-      {children}
-    </Wrapper>
+    <>
+      <ModalBackground />
+      <Wrapper
+        width={parseInt(width)}
+        height={parseInt(height)}
+        left={parseInt(left)}
+        top={parseInt(top)}
+        ref={ref}
+      >
+        <NavWrapper>
+          <Title>{title}</Title>
+          <CloseIcon onClick={onClose}>
+            <IoMdClose />
+          </CloseIcon>
+        </NavWrapper>
+        {children}
+      </Wrapper>
+    </>
   )
 }
+
+const ModalBackground = styled.div`
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  backdrop-filter: blur(6px);
+`
 
 const Title = styled.div`
   font-size: 30px;

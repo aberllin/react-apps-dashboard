@@ -80,14 +80,10 @@ const MenuWrapper = styled.div`
   max-width: 190px;
   max-height: 150px;
   position: relative;
-  top: 550px;
+  top: 520px;
   left: 90px;
   z-index: 100;
   padding: 15px;
-
-  @media screen and (max-width: 1300px) {
-    top: 520px;
-  }
 
   @media screen and (max-width: 1024px) {
     top: 680px;

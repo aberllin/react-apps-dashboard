@@ -34,7 +34,7 @@ export const ShareOption = ({ onClose }: Props) => {
       height="300"
       width="500"
       onClose={onClose}
-      title="Clear favorites"
+      title="Share"
       top="30"
       left="30"
     >

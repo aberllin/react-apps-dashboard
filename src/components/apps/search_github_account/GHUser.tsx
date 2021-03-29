@@ -58,7 +58,7 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   list-style-type: none;
-  margin: 30px auto;
+  margin: 20px auto;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
@@ -96,7 +96,7 @@ const Image = styled.div<{ background: string }>`
 `
 const Columns = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   font-size: 16px;
 `
 
@@ -107,25 +107,13 @@ const Column = styled.div`
   text-align: left;
 
   @media screen and (max-width: 992px) {
-    padding: 40px;
-  }
-
-  @media screen and (max-width: 768px) {
-    padding: 30px;
-  }
-
-  @media screen and (max-width: 600px) {
-    padding: 20px;
-  }
-
-  @media screen and (max-width: 400px) {
     padding: 10px;
   }
 `
 
 const Row = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 `
 const Login = styled.a`
   font-size: 25px;
@@ -137,16 +125,15 @@ const Login = styled.a`
   color: ${({ theme }) => theme.textColor};
 
   @media screen and (max-width: 992px) {
-    padding: 40px;
+    padding: 25px;
+    font-size: 20px;
   }
 
   @media screen and (max-width: 768px) {
-    padding: 30px;
-    font-size: 25px;
+    padding: 20px;
   }
 
   @media screen and (max-width: 600px) {
-    padding: 20px;
     font-size: 15px;
   }
 

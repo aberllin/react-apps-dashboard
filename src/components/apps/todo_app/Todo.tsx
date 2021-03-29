@@ -98,6 +98,7 @@ const TodoText = styled.input<{ todo: TodoType }>`
   border: none;
   background: none;
   outline: none;
+  text-overflow: ellipsis;
 
   color: ${({ theme }) => theme.textColor};
 

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 
-interface Props {
+type Props = {
   children: React.ReactNode
 }
 
@@ -13,7 +13,7 @@ type Window = {
   }
 }
 
-interface Context {
+type Context = {
   windows: Window[]
   setWindows: React.Dispatch<React.SetStateAction<Window[]>>
   closeAllWindows: () => void

@@ -66,12 +66,9 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
         {appDataIds.map((id) => {
           const app = appDataMap[id]
           return (
-            <CardandDot>
-              <div onClick={(e) => openWindow(e, id)}>
-                <AppCard title={app.title} image={app.image} />
-              </div>
-              {windows.find((app) => app.id === id) && <Dot />}
-            </CardandDot>
+            <div onClick={(e) => openWindow(e, id)}>
+              <AppCard title={app.title} image={app.image} />
+            </div>
           )
         })}
       </AppCardsWrapper>
@@ -94,21 +91,6 @@ export const Dashboard = ({ changeTheme, theme }: DashboardProps) => {
     </Container>
   )
 }
-
-const CardandDot = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const Dot = styled.div`
-  height: 5px;
-  width: 5px;
-  color: red;
-
-  @media sreen and (max-width: 480px) {
-    display: none;
-  }
-`
 
 const Container = styled.div<{ background: string }>`
   height: 100%;
